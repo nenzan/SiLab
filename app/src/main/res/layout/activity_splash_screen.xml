@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@color/colorPrimary"
     tools:context=".SplashScreenActivity">
 
     <ImageView
@@ -13,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/progressBar"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/surveyor_logo"/>
+        android:src="@drawable/surveyor_logo_white"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

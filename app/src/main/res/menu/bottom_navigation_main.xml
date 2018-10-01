@@ -14,7 +14,7 @@
         android:id="@+id/action_cart"
         android:enabled="true"
         android:icon="@drawable/ic_cart"
-        android:title="List"
+        android:title="Uji Lab"
         app:showAsAction="ifRoom"
         />
 
@@ -23,6 +23,14 @@
         android:enabled="true"
         android:icon="@drawable/ic_profile"
         android:title="Profile"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:id="@+id/action_about"
+        android:enabled="true"
+        android:icon="@drawable/ic_about"
+        android:title="Contact Us"
         app:showAsAction="ifRoom"
         />
 

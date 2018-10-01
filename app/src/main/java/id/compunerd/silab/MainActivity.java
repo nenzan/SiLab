@@ -1,13 +1,18 @@
 package id.compunerd.silab;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import id.compunerd.silab.view.CartFragment;
+import id.compunerd.silab.view.ContactUsFragment;
 import id.compunerd.silab.view.HomeFragment;
 import id.compunerd.silab.view.ProfileFragment;
 
@@ -18,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Fragment fragment = new HomeFragment();
+        loadFragment(fragment);
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -25,27 +33,61 @@ public class MainActivity extends AppCompatActivity {
                 android.support.v4.app.Fragment fragment = null;
                 switch (menuItem.getItemId()){
                     case R.id.action_home:
-                        Toast.makeText(MainActivity.this, "Ini Home", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "Ini Home", Toast.LENGTH_SHORT).show();
                         fragment = new HomeFragment();
-                        break;
+                        loadFragment(fragment);
+                        return true;
                     case R.id.action_cart:
-                        Toast.makeText(MainActivity.this, "Ini Cart", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "Ini Cart", Toast.LENGTH_SHORT).show();
                         fragment = new CartFragment();
-                        break;
+                        loadFragment(fragment);
+                        return true;
                     case R.id.action_register:
-                        Toast.makeText(MainActivity.this, "Ini Profile", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "Ini Profile", Toast.LENGTH_SHORT).show();
                         fragment = new ProfileFragment();
-                        break;
+                        loadFragment(fragment);
+                        return true;
+                    case R.id.action_about:
+                        //Toast.makeText(MainActivity.this, "Ini Contact", Toast.LENGTH_SHORT).show();
+                        fragment = new ContactUsFragment();
+                        loadFragment(fragment);
+                        return true;
+                     default:
+                         fragment = new HomeFragment();
+                         loadFragment(fragment);
+                         return true;
                 }
 
-                android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(R.id.frameLayout, fragment);
-                transaction.commit();
-                return true;
             }
         });
+
+
     }
 
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.commit();
+    }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Anda Yakin akan keluar dari aplikasi?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 }
