@@ -10,7 +10,6 @@ import android.widget.TextView;
 public class SplashScreenActivity extends AppCompatActivity {
 
     private ProgressBar mProgressBar;
-
     private int mProgressStatus = 0;
     private Handler mHandler = new Handler();
 
