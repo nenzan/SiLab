@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">SiLab</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="app_name">Si Lab</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="keranjang">Keranjang</string>
+    <string name="order">Order</string>
+    <string name="profil">Profil</string>
+    <string name="kontak">Kontak</string>
+    <string name="alamatPTSI">Jln. Jend. Gatot Subroto Kav.56  Jakarta 12950 - Indonesia</string>
 </resources>
