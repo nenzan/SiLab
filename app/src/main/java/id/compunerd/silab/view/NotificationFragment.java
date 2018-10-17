@@ -14,10 +14,10 @@ import id.compunerd.silab.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CartFragment extends Fragment {
+public class NotificationFragment extends Fragment {
 
 
-    public CartFragment() {
+    public NotificationFragment() {
         // Required empty public constructor
     }
 

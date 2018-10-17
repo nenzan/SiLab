@@ -3,25 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     tools:context=".view.HomeFragment">
 
-    <LinearLayout
+
+    <ImageView
+        android:id="@+id/imageViewHome"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:src="@drawable/surveyor_logo_white"
+        android:background="@color/colorAccent"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/android_gridview_example"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:gravity="center">
+        android:layout_below="@id/imageViewHome">
 
-        <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:src="@drawable/surveyor_logo_white"/>
-
-
+        <GridView
+            android:layout_marginTop="100dp"
+            android:id="@+id/gridViewImageText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnWidth="110dp"
+            android:gravity="center"
+            android:numColumns="auto_fit" />
     </LinearLayout>
-
-
-
 
 </RelativeLayout>

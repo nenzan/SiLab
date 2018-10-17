@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    tools:context=".view.CartFragment">
+    tools:context=".view.NotificationFragment">
 
 
     <com.facebook.shimmer.ShimmerFrameLayout
@@ -27,7 +27,7 @@
             <include layout="@layout/recipe_placeholder_item" />
 
         </LinearLayout>
-        
+
     </com.facebook.shimmer.ShimmerFrameLayout>
 
 </RelativeLayout>

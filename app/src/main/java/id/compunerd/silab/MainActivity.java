@@ -8,12 +8,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import id.compunerd.silab.view.CartFragment;
 import id.compunerd.silab.view.ContactUsFragment;
 import id.compunerd.silab.view.HomeFragment;
+import id.compunerd.silab.view.NotificationFragment;
 import id.compunerd.silab.view.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = new HomeFragment();
         loadFragment(fragment);
 
+
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -37,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new HomeFragment();
                         loadFragment(fragment);
                         return true;
-                    case R.id.action_cart:
+                    case R.id.action_notification:
                         //Toast.makeText(MainActivity.this, "Ini Cart", Toast.LENGTH_SHORT).show();
-                        fragment = new CartFragment();
+                        fragment = new NotificationFragment();
                         loadFragment(fragment);
                         return true;
                     case R.id.action_register:
@@ -47,29 +50,25 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new ProfileFragment();
                         loadFragment(fragment);
                         return true;
-                    case R.id.action_about:
+                    case R.id.action_more:
                         //Toast.makeText(MainActivity.this, "Ini Contact", Toast.LENGTH_SHORT).show();
                         fragment = new ContactUsFragment();
                         loadFragment(fragment);
                         return true;
-                     default:
-                         fragment = new HomeFragment();
-                         loadFragment(fragment);
-                         return true;
+                    default:
+                        fragment = new HomeFragment();
+                        loadFragment(fragment);
+                        return true;
                 }
 
             }
         });
-
-
     }
 
-    private void loadFragment(Fragment fragment) {
-        // load fragment
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.animator.slide_in_left, R.animator.slide_out_right, 0, 0);
-        transaction.replace(R.id.frameLayout, fragment);
-        transaction.commit();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_navigation_main, menu);
+        return true;
     }
 
     @Override
@@ -90,4 +89,15 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
+        transaction.replace(R.id.frameLayout, fragment);
+        transaction.commit();
+
+    }
+
 }

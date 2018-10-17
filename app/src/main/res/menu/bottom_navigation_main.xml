@@ -11,10 +11,10 @@
         />
 
     <item
-        android:id="@+id/action_cart"
+        android:id="@+id/action_notification"
         android:enabled="true"
-        android:icon="@drawable/ic_cart"
-        android:title="Uji Lab"
+        android:icon="@drawable/ic_notification"
+        android:title="Notification"
         app:showAsAction="ifRoom"
         />
 
@@ -27,10 +27,10 @@
         />
 
     <item
-        android:id="@+id/action_about"
+        android:id="@+id/action_more"
         android:enabled="true"
-        android:icon="@drawable/ic_about"
-        android:title="Contact Us"
+        android:icon="@drawable/ic_more_hor"
+        android:title="More"
         app:showAsAction="ifRoom"
         />
 
