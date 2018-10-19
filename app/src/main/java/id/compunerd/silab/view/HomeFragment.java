@@ -7,20 +7,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
-
 import id.compunerd.silab.CustomGridViewActivity;
-import id.compunerd.silab.MineralActivity;
+import id.compunerd.silab.ListItemActivity;
 import id.compunerd.silab.R;
 
 /**
@@ -57,14 +51,20 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int i, long id) {
                 if (i == 0){
-                    Toast.makeText(getActivity(), "GridView Item: " + i, Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(), MineralActivity.class);
+                    Toast.makeText(getActivity(), "Mineral", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
+                    intent.putExtra("jenis", "mineral");
                     startActivity(intent);
                 }else if (i == 1){
                     Toast.makeText(getActivity(), "Batu bara", Toast.LENGTH_SHORT).show();
-
+                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
+                    intent.putExtra("jenis", "batu bara");
+                    startActivity(intent);
                 }else if (i == 2){
                     Toast.makeText(getActivity(), "Migas", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
+                    intent.putExtra("jenis", "migas");
+                    startActivity(intent);
                 }
 
             }
