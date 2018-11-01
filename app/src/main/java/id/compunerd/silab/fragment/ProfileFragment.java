@@ -1,4 +1,4 @@
-package id.compunerd.silab.view;
+package id.compunerd.silab.fragment;
 
 
 import android.content.Intent;

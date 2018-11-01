@@ -4,4 +4,38 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="si_paragraph_1"></string>
+    <string name="tab_title">Order</string>
+    <string name="tidak">No</string>
+    <string name="ya">Yes</string>
+
+
+    <!-- Navigation Menu -->
+    <string name="item_vertical_stepper">Vertical Stepper (Item View)</string>
+    <string name="item_vertical_stepper_adapter">Vertical Stepper (Adapter)</string>
+
+    <!-- Vertical Stepper View Sample Item -->
+    <string name="content_step_0">Upload Payment Proof to Continue Order</string>
+    <string name="content_step_1">Wait for Confirmation Payment</string>
+    <string name="content_step_2">This is the last step. You can finish steps now.</string>
+
+    <string name="toggle_animation_button">Toggle Animation</string>
+    <string name="menu_belum_tersedia">Menu Ini Belum Tersedia</string>
+
+    <!-- Font -->
+    <string name="roboto_regular">sans-serif</string>
+    <string name="roboto_light">sans-serif-light</string>
+    <string name="roboto_condensed">sans-serif-condensed</string>
+    <string name="roboto_thin">sans-serif-thin</string>
+    <string name="roboto_medium">sans-serif-medium</string>
+    <string name="harga_satuan">Price Per Unit</string>
+    <string name="harga_total">Total price</string>
+    <string name="notifikasi">Notification</string>
+    <string name="beranda">Home</string>
+    <string name="profil">Profile</string>
+    <string name="lain">Other</string>
+    <string name="upload_payment_proof">Upload Payment Proof</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="proof_payment_suces_sent">Proof Payment Successfully Sent</string>
+    <string name="payment_verivied">Payment Verified</string>
+
 </resources>

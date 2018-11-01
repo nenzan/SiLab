@@ -10,13 +10,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import id.compunerd.silab.view.CartFragment;
-import id.compunerd.silab.view.ContactUsFragment;
-import id.compunerd.silab.view.HomeFragment;
-import id.compunerd.silab.view.NotificationFragment;
-import id.compunerd.silab.view.ProfileFragment;
+import id.compunerd.silab.fragment.ContactUsFragment;
+import id.compunerd.silab.fragment.HomeFragment;
+import id.compunerd.silab.fragment.NotificationFragment;
+import id.compunerd.silab.fragment.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 android.support.v4.app.Fragment fragment = null;
-                switch (menuItem.getItemId()){
+                switch (menuItem.getItemId()) {
                     case R.id.action_home:
                         //Toast.makeText(MainActivity.this, "Ini Home", Toast.LENGTH_SHORT).show();
                         fragment = new HomeFragment();
@@ -76,12 +74,12 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Anda Yakin akan keluar dari aplikasi?")
                 .setCancelable(false)
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.ya, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         MainActivity.this.finish();
                     }
                 })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.tidak, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                     }
@@ -91,8 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        // load fragment
-
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
         transaction.replace(R.id.frameLayout, fragment);

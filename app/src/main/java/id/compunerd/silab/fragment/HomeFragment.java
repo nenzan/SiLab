@@ -1,4 +1,4 @@
-package id.compunerd.silab.view;
+package id.compunerd.silab.fragment;
 
 
 import android.content.Intent;
@@ -28,7 +28,7 @@ public class HomeFragment extends Fragment {
 
     String[] gridViewString = {
             "Mineral", "Batubara", "Migas"
-    } ;
+    };
 
     int[] gridViewImageId = {R.drawable.grid_mineral, R.drawable.grid_batubara, R.drawable.grid_migas};
 
@@ -43,34 +43,34 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home, container, false);
         CustomGridViewActivity adapterViewAndroid = new CustomGridViewActivity(getActivity(), gridViewString, gridViewImageId);
-        androidGridView=(GridView)v.findViewById(R.id.gridViewImageText);
+        androidGridView = (GridView) v.findViewById(R.id.gridViewImageText);
         androidGridView.setAdapter(adapterViewAndroid);
         androidGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int i, long id) {
-                if (i == 0){
+            public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
+                if (i == 0) {
                     Toast.makeText(getActivity(), "Mineral", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getActivity(), ListItemActivity.class);
                     intent.putExtra("jenis", "mineral");
                     startActivity(intent);
-                }else if (i == 1){
-                    Toast.makeText(getActivity(), "Batu bara", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
-                    intent.putExtra("jenis", "batu bara");
-                    startActivity(intent);
-                }else if (i == 2){
-                    Toast.makeText(getActivity(), "Migas", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
-                    intent.putExtra("jenis", "migas");
-                    startActivity(intent);
+                } else if (i == 1) {
+                    Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Batu bara", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
+//                    intent.putExtra("jenis", "batu bara");
+//                    startActivity(intent);
+                } else if (i == 2) {
+                    Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getActivity(), "Migas", Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
+//                    intent.putExtra("jenis", "migas");
+//                    startActivity(intent);
                 }
-
             }
         });
 
-        return  v;
+        return v;
     }
 
     @Override

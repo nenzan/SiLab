@@ -6,7 +6,7 @@
         android:id="@+id/action_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Home"
+        android:title="@string/beranda"
         app:showAsAction="ifRoom"
         />
 
@@ -14,7 +14,7 @@
         android:id="@+id/action_notification"
         android:enabled="true"
         android:icon="@drawable/ic_notification"
-        android:title="Notification"
+        android:title="@string/notifikasi"
         app:showAsAction="ifRoom"
         />
 
@@ -22,7 +22,7 @@
         android:id="@+id/action_register"
         android:enabled="true"
         android:icon="@drawable/ic_profile"
-        android:title="Profile"
+        android:title="@string/profil"
         app:showAsAction="ifRoom"
         />
 
@@ -30,7 +30,7 @@
         android:id="@+id/action_more"
         android:enabled="true"
         android:icon="@drawable/ic_more_hor"
-        android:title="More"
+        android:title="@string/lain"
         app:showAsAction="ifRoom"
         />
 

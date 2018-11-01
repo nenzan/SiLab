@@ -16,10 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreenActivity"></activity>
+        <activity android:name=".SplashScreenActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MineralActivity"></activity>
+        <activity android:name=".ListItemActivity" />
+        <activity android:name=".TransactionActivity" />
+        <activity android:name=".StyledTabsActivityTestActivity" />
+        <activity android:name=".StepOrderActivity" />
+        <activity android:name=".StatusActivity"></activity>
     </application>
 
 </manifest>

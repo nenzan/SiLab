@@ -1,4 +1,4 @@
-package id.compunerd.silab.view;
+package id.compunerd.silab.fragment;
 
 
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import id.compunerd.silab.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NotificationFragment extends Fragment {
+public class CartFragment extends Fragment {
 
 
-    public NotificationFragment() {
+    public CartFragment() {
         // Required empty public constructor
     }
 

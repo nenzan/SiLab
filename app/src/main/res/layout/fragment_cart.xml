@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
     android:gravity="center"
-    tools:context=".view.CartFragment">
+    tools:context=".fragment.CartFragment">
 
 
     <com.facebook.shimmer.ShimmerFrameLayout

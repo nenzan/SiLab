@@ -42,7 +42,6 @@ public class CustomGridViewActivity extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         if (convertView == null) {
-
             gridViewAndroid = new View(mContext);
             gridViewAndroid = inflater.inflate(R.layout.gridview_layout, null);
             TextView textViewAndroid = (TextView) gridViewAndroid.findViewById(R.id.androidGridviewText);
