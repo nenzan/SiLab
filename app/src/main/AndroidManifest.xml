@@ -16,10 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreenActivity"></activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".SplashScreenActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".MineralActivity"></activity>
+        <activity android:name=".ListItemActivity"></activity>
     </application>
 
 </manifest>
