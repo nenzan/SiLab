@@ -22,7 +22,8 @@
         app:itemBackground="@color/colorAccent"
         app:menu="@menu/bottom_navigation_main"
         app:itemIconTint="@color/colorText"
-        app:itemTextColor="@color/colorText" />
+        app:itemTextColor="@color/colorText"
+        app:labelVisibilityMode="labeled"/>
 
 
 </RelativeLayout>

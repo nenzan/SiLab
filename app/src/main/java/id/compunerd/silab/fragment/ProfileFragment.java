@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import id.compunerd.silab.ProfileActivity;
+import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.RegisterActivity;
 import id.compunerd.silab.rest.ApiInterface;
@@ -60,10 +60,10 @@ public class ProfileFragment extends Fragment {
         mApiService = UtilsApi.getAPIService();
         sharedPrefManager = new SharedPrefManager(getActivity());
 
-        if (sharedPrefManager.getSPSudahLogin()){
-            startActivity(new Intent(getActivity(), ProfileActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
-        }
+//        if (sharedPrefManager.getSPSudahLogin()){
+//            startActivity(new Intent(getActivity(), ProfileActivity.class)
+//                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+//        }
 
         return v;
     }
@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
                         }else {
                             String token = jsonRESULT.getJSONObject("success").getString("token");
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
-                            Intent intent = new Intent(getActivity(), ProfileActivity.class);
+                            Intent intent = new Intent(getActivity(), MainActivity.class);
                             intent.putExtra("token", token);
                             startActivity(intent);
                             Toast.makeText(getActivity(), "Berhasil Login", Toast.LENGTH_SHORT).show();

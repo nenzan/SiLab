@@ -1,6 +1,7 @@
 package id.compunerd.silab;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,8 @@ import id.compunerd.silab.fragment.ContactUsFragment;
 import id.compunerd.silab.fragment.HomeFragment;
 import id.compunerd.silab.fragment.NotificationFragment;
 import id.compunerd.silab.fragment.ProfileFragment;
+import id.compunerd.silab.fragment.ProfileLoginFragment;
+import id.compunerd.silab.utils.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         Fragment fragment = new HomeFragment();
         loadFragment(fragment);
 
@@ -45,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_register:
                         //Toast.makeText(MainActivity.this, "Ini Profile", Toast.LENGTH_SHORT).show();
-                        fragment = new ProfileFragment();
+                        if (sharedPrefManager.getSPSudahLogin()){
+                            fragment = new ProfileLoginFragment();
+                        }else {
+                            fragment = new ProfileFragment();
+                        }
                         loadFragment(fragment);
                         return true;
                     case R.id.action_more:
