@@ -24,7 +24,6 @@
         <activity android:name=".RegisterActivity"></activity>
         <activity android:name=".StatusActivity"></activity>
         <activity android:name=".StepOrderActivity"></activity>
-        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

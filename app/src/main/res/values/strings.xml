@@ -37,5 +37,11 @@
     <string name="cancel_order">Cancel Order</string>
     <string name="proof_payment_suces_sent">Proof Payment Successfully Sent</string>
     <string name="payment_verivied">Payment Verified</string>
+    <string name="wait_payment">Order Process, Waiting for Payment</string>
+    <string name="waiting_payment_verification">Waiting Payment Verfication</string>
+    <string name="payment_verified_waiting_sample">Payment Verified, Waiting for Sample Receipt</string>
+    <string name="barang_diterim_dan_sedangdirposes">Goods has been received and are being process</string>
+    <string name="test_complete">Test Completed</string>
+    <string name="download">Download</string>
 
 </resources>
