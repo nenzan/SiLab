@@ -18,9 +18,10 @@
             android:layout_marginTop="24dp"
             app:step_animation_duration="750"
             app:step_index="1"
+            app:step_is_last="true"
             app:step_state="selected"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 1">
+            app:step_summary_done="@string/wait_payment"
+            app:step_title="31-07-2013 12:23">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/content_step_0" />
+                    android:text="@string/wait_payment" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -43,15 +44,18 @@
                         android:id="@+id/btnUploadPaymentProof"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:backgroundTint="@color/material_blue_500"
                         android:text="@string/upload_payment_proof"
                         android:textColor="@android:color/white" />
 
                     <Button
+
                         android:id="@+id/btnCancelPayment"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_weight="1"
                         android:text="@string/cancel_order" />
 
                 </LinearLayout>
@@ -65,8 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:step_index="2"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 2">
+            app:step_is_last="true"
+            app:step_state="selected"
+            app:step_summary_done="@string/waiting_payment_verification">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,7 +82,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/content_step_1" />
+                    android:text="@string/waiting_payment_verification" />
 
             </LinearLayout>
 
@@ -88,7 +93,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:step_index="3"
-            app:step_title="Step 3">
+            app:step_is_last="true"
+            app:step_state="selected"
+            app:step_summary_done="@string/payment_verified_waiting_sample">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -99,15 +106,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/content_step_2" />
+                    android:text="@string/payment_verified_waiting_sample" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -118,8 +118,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:step_index="4"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 4">
+            app:step_is_last="true"
+            app:step_state="selected"
+            app:step_summary_done="@string/barang_diterim_dan_sedangdirposes">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/content_step_1" />
+                    android:text="@string/barang_diterim_dan_sedangdirposes" />
 
             </LinearLayout>
 
@@ -141,55 +142,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:step_index="5"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 5">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/content_step_1" />
-
-            </LinearLayout>
-
-        </moe.feng.common.stepperview.VerticalStepperItemView>
-
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="6"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 6">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/content_step_1" />
-
-            </LinearLayout>
-
-        </moe.feng.common.stepperview.VerticalStepperItemView>
-
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="7"
             app:step_is_last="true"
-            app:step_summary_done="@string/proof_payment_suces_sent"
-            app:step_title="Step 7">
+            app:step_state="done"
+            app:step_summary_done="@string/test_complete">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -200,11 +155,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:text="@string/content_step_1" />
+                    android:text="@string/test_complete" />
 
             </LinearLayout>
-
         </moe.feng.common.stepperview.VerticalStepperItemView>
+        <Button
+            android:id="@+id/btnDownload"
+            android:visibility="gone"
+            android:layout_marginLeft="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/download"/>
 
     </LinearLayout>
 

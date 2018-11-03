@@ -21,8 +21,8 @@ import moe.feng.common.stepperview.VerticalStepperItemView;
  */
 public class VerticalStepperFragment extends Fragment {
 
-    private VerticalStepperItemView mSteppers[] = new VerticalStepperItemView[7];
-    private Button btnUploadPaymentProof, btnCancelPayment;
+    private VerticalStepperItemView mSteppers[] = new VerticalStepperItemView[5];
+    private Button btnUploadPaymentProof, btnCancelPayment, btnDownload;
 
 
     @Override
@@ -37,8 +37,6 @@ public class VerticalStepperFragment extends Fragment {
         mSteppers[2] = view.findViewById(R.id.stepper_2);
         mSteppers[3] = view.findViewById(R.id.stepper_3);
         mSteppers[4] = view.findViewById(R.id.stepper_4);
-        mSteppers[5] = view.findViewById(R.id.stepper_5);
-        mSteppers[6] = view.findViewById(R.id.stepper_6);
 
         VerticalStepperItemView.bindSteppers(mSteppers);
 
@@ -72,36 +70,47 @@ public class VerticalStepperFragment extends Fragment {
                         .show();
             }
         });
+
     }
 
 
-    private void changeStepper1() {
-        mSteppers[0].setSummary("");
+    private void changeStepper0(String tglBeres) {
+        //tittle diisi dengan tgl
+        mSteppers[0].setTitle(tglBeres);
+        mSteppers[0].setState(VerticalStepperItemView.STATE_DONE);
+        mSteppers[0].setIsLastStep(false);
+        mSteppers[1].setVisibility(View.VISIBLE);
+
     }
 
-    private void changeStepper2() {
-        mSteppers[1].setSummary("");
+    private void changeStepper1(String tglBeres) {
+        mSteppers[1].setTitle(tglBeres);
+        mSteppers[1].setState(VerticalStepperItemView.STATE_DONE);
+        mSteppers[1].setIsLastStep(false);
+        mSteppers[2].setVisibility(View.VISIBLE);
     }
 
-    private void changeStepper3() {
-        mSteppers[2].setSummary("");
+    private void changeStepper2(String tglBeres) {
+        mSteppers[2].setTitle(tglBeres);
+        mSteppers[2].setState(VerticalStepperItemView.STATE_DONE);
+        mSteppers[2].setIsLastStep(false);
+        mSteppers[3].setVisibility(View.VISIBLE);
     }
 
-    private void changeStepper4() {
-        mSteppers[3].setSummary("");
+    private void changeStepper3(String tglBeres) {
+        mSteppers[3].setTitle(tglBeres);
+        mSteppers[3].setState(VerticalStepperItemView.STATE_DONE);
+        mSteppers[3].setIsLastStep(false);
+        mSteppers[4].setVisibility(View.VISIBLE);
     }
 
-    private void changeStepper5() {
-        mSteppers[4].setSummary("");
+    private void changeStepper4(String tglBeres) {
+        mSteppers[4].setTitle(tglBeres);
+        mSteppers[4].setIsLastStep(true);
+        btnDownload.setVisibility(View.VISIBLE);
     }
 
-    private void changeStepper6() {
-        mSteppers[5].setSummary("");
-    }
 
-    private void changeStepper7() {
-        mSteppers[6].setSummary("");
-    }
 
 }
 
