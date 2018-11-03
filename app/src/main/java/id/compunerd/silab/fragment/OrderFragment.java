@@ -1,7 +1,9 @@
 package id.compunerd.silab.fragment;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,22 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import id.compunerd.silab.R;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderFragment extends Fragment implements Step {
+public class OrderFragment extends Fragment implements BlockingStep {
 
-    private Button btnIncrease, btnDecrease;
-    private TextView tvQuantity, tvHargaTotal;
+    public TextView tvBarang, tvTotalHarga, tvJumlahBarang;
+    private Button btnPlus, btnMin;
+
+    private long hargaSatuan = 450000;
 
     public OrderFragment() {
         // Required empty public constructor
@@ -37,8 +43,37 @@ public class OrderFragment extends Fragment implements Step {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order, container, false);
 
-        tvQuantity = (TextView) rootView.findViewById(R.id.tvQuantity);
-        tvHargaTotal = (TextView) rootView.findViewById(R.id.tvHargaTotal);
+        tvBarang = (TextView) rootView.findViewById(R.id.tvBarang);
+        tvTotalHarga = (TextView) rootView.findViewById(R.id.tvTotalHarga);
+        tvJumlahBarang = (TextView) rootView.findViewById(R.id.tvJumlahBarang);
+        btnPlus = (Button) rootView.findViewById(R.id.btnPlus);
+        btnMin = (Button) rootView.findViewById(R.id.btnMin);
+        btnMin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String currJml = (String) tvJumlahBarang.getText();
+                Integer doneJml = Integer.valueOf(currJml) - 1;
+                if (doneJml <= 0) {
+                    tvJumlahBarang.setText(String.valueOf(doneJml));
+                    btnMin.setEnabled(false);
+                } else {
+                    tvJumlahBarang.setText(String.valueOf(doneJml));
+                }
+                tvTotalHarga.setText("Rp. " + hargaSatuan * doneJml);
+            }
+        });
+        btnPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                btnMin.setEnabled(true);
+                String currJml = (String) tvJumlahBarang.getText();
+                Integer doneJml = Integer.valueOf(currJml) + 1;
+                tvJumlahBarang.setText(String.valueOf(doneJml));
+                tvTotalHarga.setText("Rp. " + hargaSatuan * doneJml);
+            }
+        });
+
+
         return rootView;
     }
 
@@ -59,5 +94,39 @@ public class OrderFragment extends Fragment implements Step {
 
     }
 
+    @Override
+    public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
+        String namaBarang = "";
+        namaBarang= (String) tvBarang.getText();
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("APPS", MODE_PRIVATE).edit();
+        editor.putString("NAMABARANG", "Gehu");
+        editor.apply();
+        callback.goToNextStep();
+    }
 
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+
+    }
+
+
+//    @Override
+//    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
+//    }
+//
+//    @Override
+//    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+//
+//    }
+//
+//    @Override
+//    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+//
+//    }
 }
