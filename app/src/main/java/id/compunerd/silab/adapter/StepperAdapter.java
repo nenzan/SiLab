@@ -16,7 +16,7 @@ import id.compunerd.silab.fragment.ConfirmOrderFragment;
 import id.compunerd.silab.fragment.OrderFragment;
 
 public class StepperAdapter extends AbstractFragmentStepAdapter {
-    public static final String CURRENT_STEP_POSITION_KEY = "STEPPPPPPPP";
+    public static final String CURRENT_STEP_POSITION_KEY = "STEP";
 
     public StepperAdapter(@NonNull FragmentManager fm, @NonNull Context context) {
         super(fm, context);
@@ -25,24 +25,19 @@ public class StepperAdapter extends AbstractFragmentStepAdapter {
 
     @Override
     public Step createStep(int position) {
-        Toast.makeText(context, "Position Create Step : "+position, Toast.LENGTH_SHORT).show();
         switch (position) {
             case 0:
-                Toast.makeText(context, "case1", Toast.LENGTH_SHORT).show();
                 final OrderFragment step1 = new OrderFragment();
                 Bundle b1 = new Bundle();
                 b1.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step1.setArguments(b1);
                 return step1;
             case 1:
-                Toast.makeText(context, "case2", Toast.LENGTH_SHORT).show();
                 final ConfirmOrderFragment step2 = new ConfirmOrderFragment();
                 Bundle b2 = new Bundle();
                 b2.putInt(CURRENT_STEP_POSITION_KEY, position);
                 step2.setArguments(b2);
                 return step2;
-
-
         }
         return null;
 

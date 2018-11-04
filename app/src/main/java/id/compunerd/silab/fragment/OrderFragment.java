@@ -18,6 +18,9 @@ import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import id.compunerd.silab.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -28,13 +31,25 @@ import static android.content.Context.MODE_PRIVATE;
  */
 public class OrderFragment extends Fragment implements BlockingStep {
 
-    public TextView tvBarang, tvTotalHarga, tvJumlahBarang;
+    public final static NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
+
+    public final static String ORDER_PREFERENCES = "ORDER_PREFERENCES";
+    public final static String NAMA_BARANG = "NAMA_BARANG";
+    public final static String JUMLAH_BARANG = "JUMLAH_BARANG";
+    public final static String TOTAL_HARGA = "TOTAL_HARGA";
+
+    private TextView tvBarang, tvTotalHarga, tvJumlahBarang;
     private Button btnPlus, btnMin;
 
+    private String namaBarang, jumlahBarang, totalHarga;
+
+    private int currJml = 1;
+    private int doneJml = 1;
+    private long total = 450000;
     private long hargaSatuan = 450000;
 
+
     public OrderFragment() {
-        // Required empty public constructor
     }
 
 
@@ -42,6 +57,7 @@ public class OrderFragment extends Fragment implements BlockingStep {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_order, container, false);
+
 
         tvBarang = (TextView) rootView.findViewById(R.id.tvBarang);
         tvTotalHarga = (TextView) rootView.findViewById(R.id.tvTotalHarga);
@@ -51,29 +67,29 @@ public class OrderFragment extends Fragment implements BlockingStep {
         btnMin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String currJml = (String) tvJumlahBarang.getText();
-                Integer doneJml = Integer.valueOf(currJml) - 1;
-                if (doneJml <= 0) {
+                doneJml = currJml - 1;
+                currJml = doneJml;
+                if (doneJml <= 1) {
                     tvJumlahBarang.setText(String.valueOf(doneJml));
                     btnMin.setEnabled(false);
                 } else {
                     tvJumlahBarang.setText(String.valueOf(doneJml));
                 }
-                tvTotalHarga.setText("Rp. " + hargaSatuan * doneJml);
+                total = hargaSatuan * doneJml;
+                tvTotalHarga.setText(formatRupiah.format((double) total));
             }
         });
         btnPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 btnMin.setEnabled(true);
-                String currJml = (String) tvJumlahBarang.getText();
-                Integer doneJml = Integer.valueOf(currJml) + 1;
+                doneJml = currJml + 1;
+                currJml = doneJml;
                 tvJumlahBarang.setText(String.valueOf(doneJml));
-                tvTotalHarga.setText("Rp. " + hargaSatuan * doneJml);
+                total = hargaSatuan * doneJml;
+                tvTotalHarga.setText(formatRupiah.format((double) total));
             }
         });
-
-
         return rootView;
     }
 
@@ -86,7 +102,8 @@ public class OrderFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onSelected() {
-
+        SharedPreferences prefs = getActivity().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE);
+        tvBarang.setText(prefs.getString(NAMA_BARANG, "--"));
     }
 
     @Override
@@ -96,10 +113,12 @@ public class OrderFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
-        String namaBarang = "";
-        namaBarang= (String) tvBarang.getText();
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences("APPS", MODE_PRIVATE).edit();
-        editor.putString("NAMABARANG", "Gehu");
+        jumlahBarang = String.valueOf(tvJumlahBarang.getText());
+        totalHarga = String.valueOf(total);
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
+        editor.putString(JUMLAH_BARANG, jumlahBarang);
+        editor.putString(TOTAL_HARGA, totalHarga);
         editor.apply();
         callback.goToNextStep();
     }
@@ -111,22 +130,6 @@ public class OrderFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-
+        callback.goToPrevStep();
     }
-
-
-//    @Override
-//    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
-
-//    }
-//
-//    @Override
-//    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
-//
-//    }
-//
-//    @Override
-//    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
-//
-//    }
 }

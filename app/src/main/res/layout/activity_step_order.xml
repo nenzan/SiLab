@@ -4,7 +4,6 @@
     android:id="@+id/stepperLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     app:ms_backButtonColor="@color/material_blue_500"
     app:ms_backButtonText="Prev"
     app:ms_completeButtonColor="@color/material_blue_700"
