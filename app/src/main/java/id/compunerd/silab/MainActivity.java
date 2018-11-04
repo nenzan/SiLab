@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_register:
                         //Toast.makeText(MainActivity.this, "Ini Profile", Toast.LENGTH_SHORT).show();
-                        if (sharedPrefManager.getSPSudahLogin()){
+                        if (sharedPrefManager.getSPSudahLogin()) {
                             fragment = new ProfileLoginFragment();
-                        }else {
+                        } else {
                             fragment = new ProfileFragment();
                         }
                         loadFragment(fragment);

@@ -1,6 +1,7 @@
 package id.compunerd.silab;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import id.compunerd.silab.adapter.ItemAdapter;
+import id.compunerd.silab.fragment.OrderFragment;
+
+import static id.compunerd.silab.fragment.OrderFragment.NAMA_BARANG;
+import static id.compunerd.silab.fragment.OrderFragment.ORDER_PREFERENCES;
 
 public class ListItemActivity extends AppCompatActivity {
 
@@ -50,8 +55,16 @@ public class ListItemActivity extends AppCompatActivity {
         lvRes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(ListItemActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(ListItemActivity.this, StepOrderActivity.class));
+                SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
+                if (position == 0) {
+                    editor.putString(NAMA_BARANG, "KTK");
+                } else if (position == 1) {
+                    editor.putString(NAMA_BARANG, "Nikel");
+                } else {
+                    editor.putString(NAMA_BARANG, "Besi");
+                }
+                editor.apply();
+                startActivity(new Intent(getBaseContext(), StepOrderActivity.class));
             }
         });
 

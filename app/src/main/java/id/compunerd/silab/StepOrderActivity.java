@@ -28,9 +28,7 @@ public class StepOrderActivity extends AppCompatActivity implements StepperLayou
 
     @Override
     public void onCompleted(View completeButton) {
-        Toast.makeText(this, "Pemesanan sudah diterima, Menunggu proses pembayaran!", Toast.LENGTH_LONG).show();
-        finish();
-        startActivity(new Intent(this,MainActivity.class));
+
     }
 
     @Nullable

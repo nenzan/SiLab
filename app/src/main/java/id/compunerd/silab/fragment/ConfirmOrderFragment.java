@@ -1,29 +1,36 @@
 package id.compunerd.silab.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.stepstone.stepper.Step;
+import com.stepstone.stepper.BlockingStep;
+import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
+import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 
 import static android.content.Context.MODE_PRIVATE;
+import static id.compunerd.silab.fragment.OrderFragment.JUMLAH_BARANG;
+import static id.compunerd.silab.fragment.OrderFragment.NAMA_BARANG;
+import static id.compunerd.silab.fragment.OrderFragment.ORDER_PREFERENCES;
+import static id.compunerd.silab.fragment.OrderFragment.TOTAL_HARGA;
+import static id.compunerd.silab.fragment.OrderFragment.formatRupiah;
 
 
-public class ConfirmOrderFragment extends Fragment implements Step {
+public class ConfirmOrderFragment extends Fragment implements BlockingStep {
 
-    public TextView tvHel;
+
+    private TextView tvNama, tvJumlah, tvTotalHarga, tvTotalHargaBank;
 
     public ConfirmOrderFragment() {
         // Required empty public constructor
@@ -35,10 +42,12 @@ public class ConfirmOrderFragment extends Fragment implements Step {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_confirm_order, container, false);
-        tvHel = (TextView) rootView.findViewById(R.id.tvHel);
+        tvNama = (TextView) rootView.findViewById(R.id.tvNama);
+        tvJumlah = (TextView) rootView.findViewById(R.id.tvJumlah);
+        tvTotalHarga = (TextView) rootView.findViewById(R.id.tvTotalHarga);
+        tvTotalHargaBank = (TextView) rootView.findViewById(R.id.tvTotalHargaBank);
         return rootView;
     }
-
 
 
     @Nullable
@@ -49,13 +58,14 @@ public class ConfirmOrderFragment extends Fragment implements Step {
 
     @Override
     public void onSelected() {
-        SharedPreferences prefs = getActivity().getSharedPreferences("APPS", MODE_PRIVATE);
-        String restoredText = prefs.getString("NAMABARANG", null);
-        if (restoredText != null) {
-            String name = prefs.getString("NAMABARANG", "No name defined");
-            tvHel.setText(name);
+        SharedPreferences prefs = getActivity().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE);
+        if (prefs != null) {
+            int tot = Integer.parseInt(prefs.getString(TOTAL_HARGA, null));
+            tvNama.setText(prefs.getString(NAMA_BARANG, null));
+            tvJumlah.setText(prefs.getString(JUMLAH_BARANG, null));
+            tvTotalHarga.setText(formatRupiah.format((double)tot));
+            tvTotalHargaBank.setText(formatRupiah.format((double)tot));
         }
-
     }
 
     @Override
@@ -64,4 +74,26 @@ public class ConfirmOrderFragment extends Fragment implements Step {
     }
 
 
+    @Override
+    public void onNextClicked(StepperLayout.OnNextClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+        //TODO POST-Order
+
+        getActivity().finish();
+        startActivity(new Intent(getActivity(),MainActivity.class));
+        //TODO untuk menghapus pref ORDER_PREFERENCES
+        SharedPreferences prefs = getActivity().getSharedPreferences(ORDER_PREFERENCES, Context.MODE_PRIVATE);
+        prefs.edit().remove("NAMA_BARANG").commit();
+        prefs.edit().remove("JUMLAH_BARANG").commit();
+        prefs.edit().remove("TOTAL_HARGA").commit();
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+        callback.goToPrevStep();
+    }
 }
