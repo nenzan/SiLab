@@ -12,7 +12,7 @@
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:layout_gravity="center"
-        android:src="@drawable/grid_batubara" />
+        android:src="@drawable/grid_mineral" />
 
     <TextView
         android:id="@+id/tvBarang"

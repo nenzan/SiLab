@@ -26,4 +26,13 @@ public interface ApiInterface {
     Call<ResponseBody> detailUser(@Header("Content-Type") String content,
                                   @Header("Accept") String acc,
                                   @Header("Authorization") String auth);
+
+    @FormUrlEncoded
+    @POST("/api/pengujian/simpan")
+    Call<ResponseBody> orderPengujian(@Field("id_perusahaan") String id_perusahaan,
+                                      @Field("id_barang") String id_barang,
+                                      @Field("jumlah_barang") String jumlah_barang,
+                                      @Field("total_harga") String total_harga);
+
+
 }

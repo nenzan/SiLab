@@ -17,6 +17,7 @@ import id.compunerd.silab.fragment.HomeFragment;
 import id.compunerd.silab.fragment.NotificationFragment;
 import id.compunerd.silab.fragment.ProfileFragment;
 import id.compunerd.silab.fragment.ProfileLoginFragment;
+import id.compunerd.silab.fragment.VerticalStepperFragment;
 import id.compunerd.silab.utils.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -44,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_notification:
                         //Toast.makeText(MainActivity.this, "Ini Cart", Toast.LENGTH_SHORT).show();
-                        fragment = new NotificationFragment();
+//                        fragment = new NotificationFragment();
+//                        loadFragment(fragment);
+
+                        fragment = new VerticalStepperFragment();
                         loadFragment(fragment);
                         return true;
                     case R.id.action_register:

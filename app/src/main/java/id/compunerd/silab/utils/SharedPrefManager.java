@@ -8,6 +8,7 @@ public class SharedPrefManager {
 
     public static final String SP_NAMA = "spNama";
     public static final String SP_EMAIL = "spEmail";
+    public static final String SP_TOKEN = "spToken";
 
     public static final String SP_SUDAH_LOGIN = "spSudahLogin";
 
@@ -21,7 +22,7 @@ public class SharedPrefManager {
 
     public void saveSPString(String keySP, String value){
         spEditor.putString(keySP, value);
-        spEditor.commit();
+        spEditor.apply();
     }
 
     public void saveSPInt(String keySP, int value){
@@ -41,6 +42,8 @@ public class SharedPrefManager {
     public String getSPEmail(){
         return sp.getString(SP_EMAIL, "");
     }
+
+    public String getSPToken(){return sp.getString(SP_TOKEN, "");}
 
     public Boolean getSPSudahLogin(){
         return sp.getBoolean(SP_SUDAH_LOGIN, false);

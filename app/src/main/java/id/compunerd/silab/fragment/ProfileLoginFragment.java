@@ -64,9 +64,13 @@ public class ProfileLoginFragment extends Fragment {
         Bundle extra = getActivity().getIntent().getExtras();
         if (extra != null) {
 //            token.setText(extra.getString("token"));
+            String token = extra.getString("token");
+            sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN,token);
+
+            String getToken = sharedPrefManager.getSPToken();
             mApiService.detailUser("application/x-www-form-urlencoded",
                     "application/json",
-                    "Bearer " + extra.getString("token")).enqueue(new Callback<ResponseBody>() {
+                    "Bearer " + getToken).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
@@ -77,11 +81,13 @@ public class ProfileLoginFragment extends Fragment {
                             } else {
                                 String email = jsonRESULT.getJSONObject("success").getString("email");
                                 String name = jsonRESULT.getJSONObject("success").getString("name");
-                                profileName.setText(name);
-                                profileEmail.setText(email);
+
+                               // Save Data Nama dan Email User Login di SharedPreference
+                                saveDataSP(name, email);
+
+
 //                                Toast.makeText(ProfileActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -105,9 +111,18 @@ public class ProfileLoginFragment extends Fragment {
         });
     }
 
+    private void saveDataSP(String nama, String email) {
+        sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA,nama);
+        sharedPrefManager.saveSPString(SharedPrefManager.SP_EMAIL,email);
+
+        profileName.setText(sharedPrefManager.getSPNama());
+        profileEmail.setText(sharedPrefManager.getSPEmail());
+    }
+
     private void logoutProcess() {
         sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, false);
         startActivity(new Intent(getActivity(), MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+        getActivity().finish();
     }
 }

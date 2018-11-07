@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimary"
+    android:orientation="vertical"
     tools:context=".fragment.HomeFragment">
 
 
     <ImageView
         android:id="@+id/imageViewHome"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/surveyor_logo_white"
-        android:background="@color/colorAccent"/>
+        android:layout_height="0dp"
+        android:layout_weight="0.60"
+        android:background="@color/colorAccent"
+        android:src="@drawable/surveyor_logo_white" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:id="@+id/android_gridview_example"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@id/imageViewHome">
+        android:layout_height="0dp"
+        android:layout_below="@id/imageViewHome"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <GridView
-            android:layout_marginTop="100dp"
+            android:layout_margin="15dp"
+            android:layout_gravity="center"
             android:id="@+id/gridViewImageText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:columnWidth="110dp"
-            android:gravity="center"
-            android:numColumns="auto_fit" />
+            android:numColumns="3" />
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>
