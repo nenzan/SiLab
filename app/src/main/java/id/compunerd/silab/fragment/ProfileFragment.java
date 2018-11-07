@@ -100,10 +100,12 @@ public class ProfileFragment extends Fragment {
                         }else {
                             String token = jsonRESULT.getJSONObject("success").getString("token");
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
+                            sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN, token);
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             intent.putExtra("token", token);
                             startActivity(intent);
                             Toast.makeText(getActivity(), "Berhasil Login", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
                         }
 
                     } catch (JSONException e) {

@@ -4,169 +4,189 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <android.support.v7.widget.CardView
         android:layout_margin="20dp"
-        android:animateLayoutChanges="true"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner">
 
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_0"
+
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            app:step_animation_duration="750"
-            app:step_index="1"
-            app:step_is_last="true"
-            app:step_state="selected"
-            app:step_summary_done="@string/wait_payment"
-            app:step_title="31-07-2013 12:23">
+            android:layout_height="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/darker_gray" />
 
-            <LinearLayout
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true"
+            android:orientation="vertical">
+
+            <moe.feng.common.stepperview.VerticalStepperItemView
+                android:id="@+id/stepper_0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/wait_payment" />
+                android:layout_marginTop="24dp"
+                app:step_animation_duration="750"
+                app:step_index="1"
+                app:step_is_last="true"
+                app:step_state="selected"
+                app:step_summary_done="@string/wait_payment"
+                app:step_title="31-07-2013 12:23">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/btnUploadPaymentProof"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/material_blue_500"
-                        android:text="@string/upload_payment_proof"
-                        android:textColor="@android:color/white" />
+                        android:layout_marginTop="12dp"
+                        android:text="@string/wait_payment" />
 
-                    <Button
-
-                        android:id="@+id/btnCancelPayment"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_weight="1"
-                        android:text="@string/cancel_order" />
+                        android:layout_marginTop="16dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnUploadPaymentProof"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:backgroundTint="@color/material_blue_500"
+                            android:text="@string/upload_payment_proof"
+                            android:textColor="@android:color/white" />
+
+                        <Button
+
+                            android:id="@+id/btnCancelPayment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_weight="1"
+                            android:text="@string/cancel_order" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </moe.feng.common.stepperview.VerticalStepperItemView>
 
-        </moe.feng.common.stepperview.VerticalStepperItemView>
-
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="2"
-            app:step_is_last="true"
-            app:step_state="selected"
-            app:step_summary_done="@string/waiting_payment_verification">
-
-            <LinearLayout
+            <moe.feng.common.stepperview.VerticalStepperItemView
+                android:id="@+id/stepper_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:visibility="gone"
+                app:step_index="2"
+                app:step_is_last="true"
+                app:step_state="selected"
+                app:step_summary_done="@string/waiting_payment_verification">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/waiting_payment_verification" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/waiting_payment_verification" />
 
-        </moe.feng.common.stepperview.VerticalStepperItemView>
+                </LinearLayout>
 
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="3"
-            app:step_is_last="true"
-            app:step_state="selected"
-            app:step_summary_done="@string/payment_verified_waiting_sample">
+            </moe.feng.common.stepperview.VerticalStepperItemView>
 
-            <LinearLayout
+            <moe.feng.common.stepperview.VerticalStepperItemView
+                android:id="@+id/stepper_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:visibility="gone"
+                app:step_index="3"
+                app:step_is_last="true"
+                app:step_state="selected"
+                app:step_summary_done="@string/payment_verified_waiting_sample">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/payment_verified_waiting_sample" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/payment_verified_waiting_sample" />
 
 
-            </LinearLayout>
+                </LinearLayout>
 
-        </moe.feng.common.stepperview.VerticalStepperItemView>
+            </moe.feng.common.stepperview.VerticalStepperItemView>
 
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="4"
-            app:step_is_last="true"
-            app:step_state="selected"
-            app:step_summary_done="@string/barang_diterim_dan_sedangdirposes">
-
-            <LinearLayout
+            <moe.feng.common.stepperview.VerticalStepperItemView
+                android:id="@+id/stepper_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:visibility="gone"
+                app:step_index="4"
+                app:step_is_last="true"
+                app:step_state="selected"
+                app:step_summary_done="@string/barang_diterim_dan_sedangdirposes">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/barang_diterim_dan_sedangdirposes" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/barang_diterim_dan_sedangdirposes" />
 
-        </moe.feng.common.stepperview.VerticalStepperItemView>
+                </LinearLayout>
 
-        <moe.feng.common.stepperview.VerticalStepperItemView
-            android:id="@+id/stepper_4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:step_index="5"
-            app:step_is_last="true"
-            app:step_state="done"
-            app:step_summary_done="@string/test_complete">
+            </moe.feng.common.stepperview.VerticalStepperItemView>
 
-            <LinearLayout
+            <moe.feng.common.stepperview.VerticalStepperItemView
+                android:id="@+id/stepper_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:visibility="gone"
+                app:step_index="5"
+                app:step_is_last="true"
+                app:step_state="done"
+                app:step_summary_done="@string/test_complete">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
-                    android:text="@string/test_complete" />
+                    android:orientation="vertical">
 
-            </LinearLayout>
-        </moe.feng.common.stepperview.VerticalStepperItemView>
-        <Button
-            android:id="@+id/btnDownload"
-            android:visibility="gone"
-            android:layout_marginLeft="60dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/download"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="@string/test_complete" />
 
-    </LinearLayout>
+                </LinearLayout>
+            </moe.feng.common.stepperview.VerticalStepperItemView>
 
+            <Button
+                android:id="@+id/btnDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:text="@string/download"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 </android.support.v4.widget.NestedScrollView>

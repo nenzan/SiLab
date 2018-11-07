@@ -45,6 +45,7 @@ public class VerticalStepperFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+
             }
         });
         btnCancelPayment = view.findViewById(R.id.btnCancelPayment);
@@ -71,16 +72,24 @@ public class VerticalStepperFragment extends Fragment {
             }
         });
 
+        changeStepper0("tanggal ordernyah",true);
+        changeStepper1("tanggal pembayaran  telah di vefipikasi ");
+//        changeStepper2("tanggal barang sample diterima");
+//        changeStepper3("tanggal barang sedang diproses");
     }
 
 
-    private void changeStepper0(String tglBeres) {
+    private void changeStepper0(String tgl,boolean isDone) {
         //tittle diisi dengan tgl
-        mSteppers[0].setTitle(tglBeres);
-        mSteppers[0].setState(VerticalStepperItemView.STATE_DONE);
-        mSteppers[0].setIsLastStep(false);
-        mSteppers[1].setVisibility(View.VISIBLE);
-
+        mSteppers[0].setTitle(tgl);
+        if(!isDone){
+            mSteppers[0].setState(VerticalStepperItemView.STATE_SELECTED);
+            mSteppers[0].setIsLastStep(true);
+        }else{
+            mSteppers[0].setState(VerticalStepperItemView.STATE_DONE);
+            mSteppers[0].setIsLastStep(false);
+            mSteppers[1].setVisibility(View.VISIBLE);
+        }
     }
 
     private void changeStepper1(String tglBeres) {
