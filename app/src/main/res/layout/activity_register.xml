@@ -70,6 +70,17 @@
                 android:textColor="@color/colorPrimaryText"
                 android:textColorHint="@color/colorPrimaryText" />
 
+            <TextView
+                android:id="@+id/toLogin"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Already have account? Back to Login!"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:textColor="@color/colorPrimaryText" />
+
             <Button
                 android:id="@+id/buttonRegister"
                 android:layout_width="match_parent"
@@ -78,15 +89,7 @@
                 android:textColor="@color/colorText"
                 android:background="@color/colorAccent" />
 
-            <TextView
-                android:id="@+id/toLogin"
-                android:layout_marginTop="34dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Already have account? Back to Login!"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimaryText" />
+
 
         </LinearLayout>
 

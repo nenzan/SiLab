@@ -51,6 +51,6 @@
     <string name="pt_surveyor_indonesia">PT. Surveyor Indonesia</string>
     <string name="msg_exit">Are you sure want to exit the application?</string>
     <string name="registration_success">Registration Success</string>
-
+    <string name="cancel_underline"><u>Cancel</u></string>
 </resources>
 

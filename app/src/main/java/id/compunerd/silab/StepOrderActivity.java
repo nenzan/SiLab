@@ -1,17 +1,20 @@
 package id.compunerd.silab;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import com.stepstone.stepper.BlockingStep;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
 import id.compunerd.silab.adapter.StepperAdapter;
 
-public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener {
+public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener,BlockingStep {
     private StepperLayout mStepperLayout;
 
     @Override
@@ -25,9 +28,18 @@ public class StepOrderActivity extends AppCompatActivity implements StepperLayou
 
     @Override
     public void onCompleted(View completeButton) {
-        Toast.makeText(this, "Pemesanan sudah diterima, Menunggu proses pembayaran!", Toast.LENGTH_LONG).show();
-        finish();
-        startActivity(new Intent(this,MainActivity.class));
+
+    }
+
+    @Nullable
+    @Override
+    public VerificationError verifyStep() {
+        return null;
+    }
+
+    @Override
+    public void onSelected() {
+
     }
 
     @Override
@@ -48,5 +60,20 @@ public class StepOrderActivity extends AppCompatActivity implements StepperLayou
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+    }
+
+    @Override
+    public void onBackClicked(StepperLayout.OnBackClickedCallback callback) {
+
     }
 }

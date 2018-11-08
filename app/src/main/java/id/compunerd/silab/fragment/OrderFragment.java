@@ -1,6 +1,7 @@
 package id.compunerd.silab.fragment;
 
 
+import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,8 +34,10 @@ public class OrderFragment extends Fragment implements BlockingStep {
 
     public final static NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(new Locale("in", "ID"));
 
+
     public final static String ORDER_PREFERENCES = "ORDER_PREFERENCES";
     public final static String NAMA_BARANG = "NAMA_BARANG";
+    public final static String KODE_BARANG = "KODE_BARANG";
     public final static String JUMLAH_BARANG = "JUMLAH_BARANG";
     public final static String TOTAL_HARGA = "TOTAL_HARGA";
 
@@ -113,15 +116,44 @@ public class OrderFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onNextClicked(final StepperLayout.OnNextClickedCallback callback) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.confirm_dialog);
+
+        final TextView DtvNama = (TextView) dialog.findViewById(R.id.DtvNama);
+        final TextView DtvJumlah = (TextView) dialog.findViewById(R.id.DtvJumlah);
+        final TextView DtvTotalHarga = (TextView) dialog.findViewById(R.id.DtvTotalHarga);
+        final Button DbtnConfirm = (Button) dialog.findViewById(R.id.DbtnConfirm);
+        final Button DbtnCancel= (Button) dialog.findViewById(R.id.DbtnCancel);
+
+        namaBarang = String.valueOf(tvBarang.getText());
         jumlahBarang = String.valueOf(tvJumlahBarang.getText());
         totalHarga = String.valueOf(total);
 
-        SharedPreferences.Editor editor = getActivity().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
-        editor.putString(JUMLAH_BARANG, jumlahBarang);
-        editor.putString(TOTAL_HARGA, totalHarga);
-        editor.apply();
-        callback.goToNextStep();
+
+        DtvNama.setText(namaBarang);
+        DtvJumlah.setText(jumlahBarang);
+        DtvTotalHarga.setText(formatRupiah.format((double) total));
+
+        DbtnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
+                editor.putString(JUMLAH_BARANG, jumlahBarang);
+                editor.putString(TOTAL_HARGA, totalHarga);
+                editor.apply();
+                callback.goToNextStep();
+            }
+        });
+        DbtnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
+
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
