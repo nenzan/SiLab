@@ -24,7 +24,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (mProgressStatus < 100){
+                while (mProgressStatus < 100) {
                     mProgressStatus++;
                     android.os.SystemClock.sleep(50);
                     mHandler.post(new Runnable() {

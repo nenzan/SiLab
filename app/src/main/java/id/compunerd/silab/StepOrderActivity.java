@@ -14,7 +14,7 @@ import com.stepstone.stepper.VerificationError;
 
 import id.compunerd.silab.adapter.StepperAdapter;
 
-public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener,BlockingStep {
+public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener, BlockingStep {
     private StepperLayout mStepperLayout;
 
     @Override
