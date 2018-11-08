@@ -101,6 +101,15 @@ public class ConfirmOrderFragment extends Fragment implements BlockingStep {
 
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
+
+        if (tvNama.getText().equals("KTK")){
+            idBarang = "BG00000001";
+        }else if (tvNama.getText().equals("Nike")){
+            idBarang = "BG00000002";
+        }else if (tvNama.getText().equals("Besi")){
+            idBarang = "BG00000003";
+        }
+
         // TODO: 06/11/2018 POST Order Barang
         orderBarang(idPerusahaan, idBarang, tvJumlah.getText().toString(), Integer.toString(tot));
 

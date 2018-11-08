@@ -13,7 +13,7 @@ import id.compunerd.silab.R;
 
 public class ItemAdapter extends BaseAdapter {
 
-    TextView text1, text2;
+    TextView txtNamaBarangUji, txtStatusPengujian, txtTanggalOrder;
     ImageView imgView;
     String[][] data;
     Activity activity;
@@ -53,15 +53,17 @@ public class ItemAdapter extends BaseAdapter {
 
         if (p != null){
             imgView = (ImageView) v.findViewById(R.id.imgView);
-            text1 = (TextView) v.findViewById(R.id.text1);
-            text2 = (TextView) v.findViewById(R.id.text2);
+            txtNamaBarangUji = (TextView) v.findViewById(R.id.txtNamaBarangUji);
+            txtStatusPengujian = (TextView) v.findViewById(R.id.txtStatusPengujian);
+            txtTanggalOrder = (TextView) v.findViewById(R.id.txtTanggalOrder);
 
             int id = activity.getResources().getIdentifier(data[position][2], "drawable", activity.getPackageName());
             Drawable drawable = activity.getResources().getDrawable(id);
 
             imgView.setImageDrawable(drawable);
-            text1.setText(data[position][0]);
-            text2.setText(data[position][1]);
+            txtNamaBarangUji.setText(data[position][0]);
+            txtStatusPengujian.setText(data[position][1]);
+            txtTanggalOrder.setText(data[position][2]);
 
         }
 
