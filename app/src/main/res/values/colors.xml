@@ -2,8 +2,8 @@
 <resources>
     <color name="colorPrimary">#E4F2FD</color>
     <color name="colorPrimaryDark">#0097A7</color>
-    <color name="colorPrimaryLight">#B2EBF2</color>
-    <color name="colorAccent">#1D89E4</color>
+    <color name="colorPrimaryLight">#C1C1C1</color>
+    <color name="colorAccent">#1E88E5</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="colorText">#FFFFFF</color>
@@ -14,7 +14,6 @@
     <color name="description">#1a1a1a</color>
     <color name="chef">#777</color>
     <color name="timestamp">#777</color>
-
 
     <color name="material_blue_500">#2196F3</color>
     <color name="material_blue_700">#1976D2</color>

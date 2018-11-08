@@ -1,6 +1,7 @@
 package id.compunerd.silab;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +15,8 @@ import com.stepstone.stepper.VerificationError;
 
 import id.compunerd.silab.adapter.StepperAdapter;
 
-public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener,BlockingStep {
-    private StepperLayout mStepperLayout;
+public class StepOrderActivity extends AppCompatActivity implements StepperLayout.StepperListener, BlockingStep {
+    StepperLayout mStepperLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,12 @@ public class StepOrderActivity extends AppCompatActivity implements StepperLayou
 
     @Override
     public void onStepSelected(int newStepPosition) {
-        //Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
+        if (newStepPosition == 1) {
+            Toast.makeText(this, "Anjay", Toast.LENGTH_SHORT).show();
+            mStepperLayout.setBackButtonEnabled(false);
+            mStepperLayout.setBackButtonColor(Color.WHITE);
+        }
     }
 
     @Override

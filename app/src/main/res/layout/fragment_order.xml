@@ -2,84 +2,98 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
+    <android.support.v7.widget.CardView
         android:layout_margin="10dp"
-        android:src="@drawable/grid_mineral" />
-
-    <TextView
-        android:id="@+id/tvBarang"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Batu Bara"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/quantity"
-        android:textSize="20sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btnMin"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:enabled="false"
-            android:text="-" />
-
-        <TextView
-            android:id="@+id/tvJumlahBarang"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:background="@drawable/rounded_corner"
-            android:layout_gravity="center"
-            android:text="1"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btnPlus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:text="+" />
-    </LinearLayout>
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:src="@drawable/grid_mineral" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="@string/total"
-        android:textSize="20sp" />
+            <TextView
+                android:id="@+id/tvBarang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Batu Bara"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tvTotalHarga"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/rounded_corner"
-        android:gravity="right"
-        android:text="Rp.450.000"
-        android:textSize="20sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/quantity"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnMin"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:enabled="false"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/tvJumlahBarang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.5"
+                    android:background="@drawable/rounded_corner"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/btnPlus"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:text="+" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="@string/total"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTotalHarga"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rounded_corner"
+                android:gravity="right"
+                android:text="Rp.450.000"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
 </LinearLayout>

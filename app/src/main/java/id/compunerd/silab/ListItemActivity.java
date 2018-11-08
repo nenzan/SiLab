@@ -10,17 +10,19 @@ import android.widget.ListView;
 
 import id.compunerd.silab.adapter.ItemAdapter;
 
+import static id.compunerd.silab.fragment.OrderFragment.KODE_BARANG;
 import static id.compunerd.silab.fragment.OrderFragment.NAMA_BARANG;
 import static id.compunerd.silab.fragment.OrderFragment.ORDER_PREFERENCES;
 
 public class ListItemActivity extends AppCompatActivity {
 
     ListView lvRes;
-    public final static String[][] dataMineral = new String[][]{{"KTK", "Mineral", "grid_mineral"},
-            {"Nikel (Ni)", "Mineral", "grid_mineral"},
-            {"Besi (Fe)", "Mineral", "grid_mineral"},
-            {"Bauksit", "Mineral", "grid_mineral"},
-            {"Kaolin", "Mineral", "grid_mineral"}};
+    public final static String[][] dataMineral = new String[][]{
+            {"KTK", "Mineral", "grid_mineral","BG00000001"},
+            {"Nikel", "Mineral", "grid_mineral","BG00000002"},
+            {"Besi", "Mineral", "grid_mineral","BG00000003"},
+            {"Bauksit", "Mineral", "grid_mineral","BG00000004"},
+            {"Kaolin", "Mineral", "grid_mineral","BG00000005"}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ListItemActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
                 editor.putString(NAMA_BARANG, dataMineral[position][0]);
+                editor.putString(KODE_BARANG, dataMineral[position][3]);
                 editor.apply();
                 startActivity(new Intent(getBaseContext(), StepOrderActivity.class));
             }

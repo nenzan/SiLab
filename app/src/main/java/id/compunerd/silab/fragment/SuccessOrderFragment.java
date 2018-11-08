@@ -40,7 +40,7 @@ import static id.compunerd.silab.fragment.OrderFragment.TOTAL_HARGA;
 import static id.compunerd.silab.fragment.OrderFragment.formatRupiah;
 
 
-public class ConfirmOrderFragment extends Fragment implements BlockingStep {
+public class SuccessOrderFragment extends Fragment implements BlockingStep {
 
 
     private TextView tvNama, tvJumlah, tvTotalHarga, tvTotalHargaBank;
@@ -49,7 +49,7 @@ public class ConfirmOrderFragment extends Fragment implements BlockingStep {
     String idBarang = "BG00000002";
     int tot;
 
-    public ConfirmOrderFragment() {
+    public SuccessOrderFragment() {
         // Required empty public constructor
     }
 
@@ -64,7 +64,6 @@ public class ConfirmOrderFragment extends Fragment implements BlockingStep {
         tvTotalHarga = (TextView) rootView.findViewById(R.id.tvTotalHarga);
         tvTotalHargaBank = (TextView) rootView.findViewById(R.id.tvTotalHargaBank);
         mApiService = UtilsApi.getAPIService();
-
         return rootView;
     }
 
