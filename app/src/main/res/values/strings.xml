@@ -46,6 +46,11 @@
     <string name="name">Name</string>
     <string name="quantity">Quantity</string>
     <string name="total">Total</string>
+    <string name="price">Price</string>
+    <string name="nama_pemilik_rekening">Name of Account Owner</string>
+    <string name="pt_surveyor_indonesia">PT. Surveyor Indonesia</string>
+    <string name="msg_exit">Are you sure want to exit the application?</string>
+    <string name="registration_success">Registration Success</string>
 
 </resources>
 

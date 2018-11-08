@@ -29,8 +29,8 @@
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:hint="E-mail"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorPrimaryLight"/>
+            android:textColor="@color/colorPrimaryText"
+            android:textColorHint="@color/colorPrimaryText" />
 
         <android.support.design.widget.TextInputEditText
             android:drawableLeft="@drawable/ic_password"
@@ -39,8 +39,8 @@
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Password"
-            android:textColor="@color/colorText"
-            android:textColorHint="@color/colorPrimaryLight"/>
+            android:textColor="@color/colorPrimaryText"
+            android:textColorHint="@color/colorPrimaryText" />
 
         <Button
             android:id="@+id/buttonSignIn"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="Sign In"
             android:textColor="@color/colorText"
-            android:background="@color/colorPrimaryDark"/>
+            android:background="@color/colorAccent" />
 
         <View
             android:layout_marginTop="14dp"
@@ -64,7 +64,7 @@
             android:text="Don't have account? Register Here!"
             android:textAlignment="center"
             android:textSize="16sp"
-            android:textColor="@color/colorText"/>
+            android:textColor="@color/colorPrimaryText" />
 
     </LinearLayout>
 </RelativeLayout>

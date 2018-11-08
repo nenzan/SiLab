@@ -8,30 +8,37 @@
     tools:context=".fragment.HomeFragment">
 
 
-    <ImageView
-        android:id="@+id/imageViewHome"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.60"
         android:background="@color/colorAccent"
-        android:src="@drawable/surveyor_logo_white" />
+        android:layout_weight="0.70">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/imageViewHome"
+            android:layout_height="155dp"
+            android:src="@drawable/logo_survey"
+            android:layout_width="wrap_content" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/android_gridview_example"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_below="@id/imageViewHome"
         android:layout_weight="1"
         android:orientation="vertical">
 
         <GridView
-            android:layout_margin="15dp"
-            android:layout_gravity="center"
             android:id="@+id/gridViewImageText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
             android:columnWidth="110dp"
-            android:numColumns="3" />
+            android:horizontalSpacing="10dp"
+            android:numColumns="3"
+            android:verticalSpacing="10dp" />
     </LinearLayout>
 
 </LinearLayout>
