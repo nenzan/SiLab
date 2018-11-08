@@ -1,14 +1,13 @@
 package id.compunerd.silab;
 
 import android.content.DialogInterface;
-import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,7 +16,6 @@ import id.compunerd.silab.fragment.HomeFragment;
 import id.compunerd.silab.fragment.NotificationFragment;
 import id.compunerd.silab.fragment.ProfileFragment;
 import id.compunerd.silab.fragment.ProfileLoginFragment;
-import id.compunerd.silab.fragment.VerticalStepperFragment;
 import id.compunerd.silab.utils.SharedPrefManager;
 
 public class MainActivity extends AppCompatActivity {
@@ -84,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Anda Yakin akan keluar dari aplikasi?")
+        builder.setMessage(R.string.msg_exit)
                 .setCancelable(false)
                 .setPositiveButton(R.string.ya, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

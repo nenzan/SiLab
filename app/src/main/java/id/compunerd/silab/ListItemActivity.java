@@ -2,15 +2,13 @@ package id.compunerd.silab;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import id.compunerd.silab.adapter.ItemAdapter;
-import id.compunerd.silab.fragment.OrderFragment;
 
 import static id.compunerd.silab.fragment.OrderFragment.NAMA_BARANG;
 import static id.compunerd.silab.fragment.OrderFragment.ORDER_PREFERENCES;
@@ -18,6 +16,11 @@ import static id.compunerd.silab.fragment.OrderFragment.ORDER_PREFERENCES;
 public class ListItemActivity extends AppCompatActivity {
 
     ListView lvRes;
+    public final static String[][] dataMineral = new String[][]{{"KTK", "Mineral", "grid_mineral"},
+            {"Nikel (Ni)", "Mineral", "grid_mineral"},
+            {"Besi (Fe)", "Mineral", "grid_mineral"},
+            {"Bauksit", "Mineral", "grid_mineral"},
+            {"Kaolin", "Mineral", "grid_mineral"}};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +29,6 @@ public class ListItemActivity extends AppCompatActivity {
         String strExtra;
         lvRes = (ListView) findViewById(R.id.lvResult);
 
-        String[][] dataMineral = new String[][]{{"KTK", "Mineral", "grid_mineral"},
-                {"Nikel (Ni)", "Mineral", "grid_mineral"},
-                {"Besi (Fe)", "Mineral", "grid_mineral"}};
 
         String[][] dataBatuBara = new String[][]{{"Batu", "Batu Bara", "grid_batubara"},
                 {"Arang", "Batu Bara", "grid_batubara"},
@@ -56,13 +56,7 @@ public class ListItemActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 SharedPreferences.Editor editor = getApplicationContext().getSharedPreferences(ORDER_PREFERENCES, MODE_PRIVATE).edit();
-                if (position == 0) {
-                    editor.putString(NAMA_BARANG, "KTK");
-                } else if (position == 1) {
-                    editor.putString(NAMA_BARANG, "Nikel");
-                } else {
-                    editor.putString(NAMA_BARANG, "Besi");
-                }
+                editor.putString(NAMA_BARANG, dataMineral[position][0]);
                 editor.apply();
                 startActivity(new Intent(getBaseContext(), StepOrderActivity.class));
             }

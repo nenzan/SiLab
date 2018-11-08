@@ -1,11 +1,12 @@
 package id.compunerd.silab;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import id.compunerd.silab.model.UserResult;
@@ -20,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button buttonRegister;
     ApiInterface mApiService;
     TextInputEditText RegistName, RegistEmail, RegistPassword, RegistConfirmPassword;
+    TextView toLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,13 @@ public class RegisterActivity extends AppCompatActivity {
                 requestRegister();
             }
         });
+        toLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+            }
+        });
     }
 
     private void requestRegister() {
@@ -42,7 +51,7 @@ public class RegisterActivity extends AppCompatActivity {
                 RegistConfirmPassword.getText().toString()).enqueue(new Callback<UserResult>() {
             @Override
             public void onResponse(Call<UserResult> call, Response<UserResult> response) {
-                Toast.makeText(RegisterActivity.this, "Berhasil Regist", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
 
@@ -62,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         RegistEmail = (TextInputEditText) findViewById(R.id.RegistEmail);
         RegistPassword = (TextInputEditText) findViewById(R.id.RegistPassword);
         RegistConfirmPassword = (TextInputEditText) findViewById(R.id.RegistConfirmPassword);
+        toLogin = (TextView) findViewById(R.id.toLogin);
 
     }
 }
