@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_notification:
                         //Toast.makeText(MainActivity.this, "Ini Cart", Toast.LENGTH_SHORT).show();
-//                        fragment = new NotificationFragment();
-//                        loadFragment(fragment);
-
-                        fragment = new VerticalStepperFragment();
+                        fragment = new NotificationFragment();
                         loadFragment(fragment);
+
+//                        fragment = new VerticalStepperFragment();
+//                        loadFragment(fragment);
                         return true;
                     case R.id.action_register:
                         //Toast.makeText(MainActivity.this, "Ini Profile", Toast.LENGTH_SHORT).show();
