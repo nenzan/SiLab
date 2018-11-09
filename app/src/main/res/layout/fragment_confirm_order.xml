@@ -17,7 +17,7 @@
             android:layout_height="75dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@drawable/checklist" />
+            android:src="@drawable/surveyor_logo" />
 
         <TextView
             android:layout_width="match_parent"

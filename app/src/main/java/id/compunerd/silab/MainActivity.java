@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         transaction.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
         transaction.replace(R.id.frameLayout, fragment);
         transaction.commit();
-
     }
 
 }

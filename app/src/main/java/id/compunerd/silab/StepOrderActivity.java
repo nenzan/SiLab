@@ -1,9 +1,11 @@
 package id.compunerd.silab;
 
+import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -50,7 +52,7 @@ public class StepOrderActivity extends AppCompatActivity implements StepperLayou
     public void onStepSelected(int newStepPosition) {
 //        Toast.makeText(this, "onStepSelected! -> " + newStepPosition, Toast.LENGTH_SHORT).show();
         if (newStepPosition == 1) {
-            Toast.makeText(this, R.string.msg_order_success, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Anjay", Toast.LENGTH_SHORT).show();
             mStepperLayout.setBackButtonEnabled(false);
             mStepperLayout.setBackButtonColor(Color.WHITE);
         }

@@ -21,6 +21,7 @@ public class StatusActivity extends AppCompatActivity {
             replaceFragment(mVerticalStepperDemoFragment);
         }
     }
+
     private void replaceFragment(Fragment fragment) {
         getSupportFragmentManager().beginTransaction().replace(R.id.flStatus, fragment).commit();
     }
