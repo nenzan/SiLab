@@ -80,7 +80,8 @@ public class ProfileLoginFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Gagal Mengambil Data", Toast.LENGTH_SHORT).show();
                             } else {
                                 String email = jsonRESULT.getJSONObject("success").getString("email");
-                                String name = jsonRESULT.getJSONObject("success").getString("name");
+                                String name = jsonRESULT.getJSONObject("success").getString("nama_perusahaan");
+                                sharedPrefManager.saveSPString(SharedPrefManager.SP_ID_PERUSAHAAN,jsonRESULT.getJSONObject("success").getString("id_perusahaan"));
 
                                // Save Data Nama dan Email User Login di SharedPreference
                                 saveDataSP(name, email);
@@ -117,6 +118,8 @@ public class ProfileLoginFragment extends Fragment {
 
         profileName.setText(sharedPrefManager.getSPNama());
         profileEmail.setText(sharedPrefManager.getSPEmail());
+
+        Toast.makeText(getActivity(), profileName.getText(), Toast.LENGTH_SHORT).show();
     }
 
     private void logoutProcess() {

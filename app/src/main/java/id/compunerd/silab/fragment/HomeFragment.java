@@ -16,6 +16,7 @@ import android.widget.Toast;
 import id.compunerd.silab.CustomGridViewActivity;
 import id.compunerd.silab.ListItemActivity;
 import id.compunerd.silab.R;
+import id.compunerd.silab.utils.SharedPrefManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,24 +50,29 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-                if (i == 0) {
-                    Toast.makeText(getActivity(), "Mineral", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
-                    intent.putExtra("jenis", "mineral");
-                    startActivity(intent);
-                } else if (i == 1) {
-                    Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
+                SharedPrefManager sp = new SharedPrefManager(getContext());
+               if(sp.getSPSudahLogin()){
+                   if (i == 0) {
+                       Toast.makeText(getActivity(), "Mineral", Toast.LENGTH_LONG).show();
+                       Intent intent = new Intent(getActivity(), ListItemActivity.class);
+                       intent.putExtra("jenis", "mineral");
+                       startActivity(intent);
+                   } else if (i == 1) {
+                       Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(getActivity(), "Batu bara", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
 //                    intent.putExtra("jenis", "batu bara");
 //                    startActivity(intent);
-                } else if (i == 2) {
-                    Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
+                   } else if (i == 2) {
+                       Toast.makeText(getActivity(), R.string.menu_belum_tersedia, Toast.LENGTH_SHORT).show();
 //                    Toast.makeText(getActivity(), "Migas", Toast.LENGTH_SHORT).show();
 //                    Intent intent = new Intent(getActivity(), ListItemActivity.class);
 //                    intent.putExtra("jenis", "migas");
 //                    startActivity(intent);
-                }
+                   }
+               }else {
+                   Toast.makeText(getActivity(), "You must login first", Toast.LENGTH_SHORT).show();
+               }
             }
         });
 

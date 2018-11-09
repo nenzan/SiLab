@@ -2,6 +2,7 @@ package id.compunerd.silab.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -46,15 +47,32 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         holder.statusPengujian.setText(resultItem.getStatusPengujian());
         holder.tanggalOrder.setText(resultItem.getCreatedAt());
 
-        String idPengujian = resultItem.getIdPengujian();
+        final String idPengujian = resultItem.getIdPengujian();
+        final String tglBayar = (String) resultItem.getTglBayar();
+        final String tglOrder = resultItem.getCreatedAt();
+        final String tglBarangDiterima = (String) resultItem.getTglBarangDiterima();
+        final String tglBarangSelesai = (String) resultItem.getTglBarangDiterima();
+        final String tglVerifikasi = (String) resultItem.getTglVerifikasi();
+        final String totalHarga = resultItem.getTotalHarga();
 
         holder.namaPengujian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AppCompatActivity activity = (AppCompatActivity) v.getContext();
                 Fragment myFragment = new VerticalStepperFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("idPengujian", idPengujian);
+                bundle.putString("tglBayar", tglBayar);
+                bundle.putString("tglOrder", tglOrder);
+                bundle.putString("tglVerifikasi", tglVerifikasi);
+                bundle.putString("tglBarangDiterima", tglBarangDiterima);
+                bundle.putString("tglBarangSelesai", tglBarangSelesai);
+                bundle.putString("totalHarga", totalHarga);
+                myFragment.setArguments(bundle);
                 activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
                 activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, myFragment).addToBackStack(null).commit();
+
+
             }
         });
     }
@@ -70,7 +88,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
 
         public CustomViewHolder(@NonNull View itemView) {
             super(itemView);
-
             namaPengujian = (TextView) itemView.findViewById(R.id.txtNamaBarangUji);
             statusPengujian = (TextView) itemView.findViewById(R.id.txtStatusPengujian);
             tanggalOrder = (TextView) itemView.findViewById(R.id.txtTanggalOrder);

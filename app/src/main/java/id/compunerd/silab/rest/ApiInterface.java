@@ -5,13 +5,18 @@ import java.util.List;
 import id.compunerd.silab.model.Item;
 import id.compunerd.silab.model.ResultItem;
 import id.compunerd.silab.model.UserResult;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
 
 public interface ApiInterface {
 
@@ -43,4 +48,14 @@ public interface ApiInterface {
     @GET("/api/pengujian/lihat/PR00000001")
     Call<Item> getDataPengujian();
 
+    @FormUrlEncoded
+    @Multipart
+    @POST("/api/pengujian/buktibayar/{idPengujian}")
+    Call<ResponseBody> uploadFile(@Part MultipartBody.Part image,
+                                  @Path("idPengujian") String idPengujian);
+
+    @FormUrlEncoded
+    @POST("/api/pengujian/buktibayar/{idPengujian}")
+    Call<ResponseBody> uploadFileText(@Field("bukti_pembayaran") String bukti_pembayaran,
+                        @Path("idPengujian") String idPengujian);
 }
