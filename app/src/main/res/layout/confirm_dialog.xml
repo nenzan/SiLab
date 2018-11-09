@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_gravity="center"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_margin="20dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Summary order is below"
+        android:lines="2"
+        android:text="@string/msg_confirm"
         android:textAlignment="center" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/darker_gray" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <TextView
@@ -29,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="sadasd"
+            android:text="-"
             android:textAlignment="textEnd"
             android:textStyle="bold" />
     </LinearLayout>
@@ -47,11 +55,11 @@
             android:text="@string/quantity" />
 
         <TextView
-
             android:id="@+id/DtvJumlah"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="1"
             android:textAlignment="textEnd"
             android:textStyle="bold" />
 
@@ -92,32 +100,59 @@
             android:text="@string/total" />
 
         <TextView
-            android:text="sadasd"
             android:id="@+id/DtvTotalHarga"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="-"
             android:textAlignment="textEnd"
+            android:textColor="@color/yellow"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/DbtnConfirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="15dp"
-        android:background="@color/colorAccent"
-        android:text="Confirm"
-        android:textColor="@color/colorText" />
 
-    <Button
-        android:id="@+id/DbtnCancel"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/darker_gray" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/check_order"
+        android:textAlignment="center" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/cancel_underline"
-        android:textColor="@color/colorAccent" />
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/DbtnCancel"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/cancel_underline"
+            android:textColor="@color/colorAccent" />
+
+        <Button
+            android:id="@+id/DbtnConfirm"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="15dp"
+            android:background="@color/colorAccent"
+            android:drawableLeft="@drawable/ic_password"
+            android:text="Confirm"
+            android:textColor="@color/colorText" />
+
+
+    </LinearLayout>
 
 
 </LinearLayout>

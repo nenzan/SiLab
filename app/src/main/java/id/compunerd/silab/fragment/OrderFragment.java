@@ -4,7 +4,6 @@ package id.compunerd.silab.fragment;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.stepstone.stepper.BlockingStep;
-import com.stepstone.stepper.Step;
 import com.stepstone.stepper.StepperLayout;
 import com.stepstone.stepper.VerificationError;
 
@@ -142,6 +141,7 @@ public class OrderFragment extends Fragment implements BlockingStep {
                 editor.putString(JUMLAH_BARANG, jumlahBarang);
                 editor.putString(TOTAL_HARGA, totalHarga);
                 editor.apply();
+                Toast.makeText(getActivity(), R.string.order_success_proceed, Toast.LENGTH_SHORT).show();
                 callback.goToNextStep();
             }
         });

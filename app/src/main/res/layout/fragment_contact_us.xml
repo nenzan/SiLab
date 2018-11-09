@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:background="@color/colorPrimary"
+    android:gravity="center"
     tools:context=".fragment.ContactUsFragment">
 
     <LinearLayout
@@ -22,55 +22,60 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
             android:text="About Us"
             android:textAlignment="center"
-            android:layout_marginTop="4dp"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimaryText" />
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:layout_marginTop="8dp"
             android:text="Graha Surveyor Indoensia"
-            android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimaryText" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="Jl. Jend. Gatot Subroto Kav.56"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimaryText" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:text="Jakarta 12950 - Indonesia"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimaryText" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:text="62-21 526 5526"
             android:layout_marginTop="8dp"
-            android:textSize="20sp"
-            android:drawableLeft="@drawable/ic_phone"
-            android:textColor="@color/colorPrimaryText" />
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_phone_black"
+            android:drawablePadding="5dp"
+            android:text="62-21 526 5526"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textAlignment="center"
+            android:drawableLeft="@drawable/ic_local_printshop"
+            android:drawablePadding="5dp"
             android:text="62-21 526 5525"
-            android:textSize="20sp"
-            android:drawableLeft="@drawable/ic_fax"
-            android:textColor="@color/colorPrimaryText" />
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="20sp" />
 
     </LinearLayout>
 

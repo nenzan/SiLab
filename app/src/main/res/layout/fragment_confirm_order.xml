@@ -186,7 +186,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="textEnd"
-                    android:textColor="#ff970f"
+                    android:textColor="@color/yellow"
                     android:textStyle="bold" />
             </LinearLayout>
 

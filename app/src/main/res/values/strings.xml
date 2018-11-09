@@ -52,5 +52,14 @@
     <string name="msg_exit">Are you sure want to exit the application?</string>
     <string name="registration_success">Registration Success</string>
     <string name="cancel_underline"><u>Cancel</u></string>
+    <string name="msg_confirm">Summary order is below \n Are you sure want to proceed this order?</string>
+    <string name="msg_order_success">Order Success, Please pay before sent sample</string>
+    <string name="don_t_have_account">Don\'t have account?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="register_here">Register Here!</string>
+    <string name="check_order">Please check order before you confirm</string>
+    <string name="order_success_proceed">Order Success Proceed</string>
+    <string name="check_notificaiton">Please check notification for status order</string>
+    <string name="logout">Logout</string>
 </resources>
 

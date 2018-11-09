@@ -26,7 +26,6 @@ import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
-import id.compunerd.silab.utils.SharedPrefManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -135,8 +134,7 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
                         }else {
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(getActivity(), "Berhasil Order Pengujian", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getActivity(), "Silahkan cek notifikasi untuk informasi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.check_notificaiton, Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                         }
                     } catch (JSONException e) {

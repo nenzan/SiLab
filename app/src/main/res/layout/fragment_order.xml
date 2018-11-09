@@ -34,6 +34,12 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@android:color/darker_gray" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -50,6 +56,7 @@
                 android:orientation="horizontal">
 
                 <Button
+                    android:background="@drawable/ic_remove_circle_outline"
                     android:id="@+id/btnMin"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -68,6 +75,7 @@
                     android:textSize="20sp" />
 
                 <Button
+                    android:background="@drawable/ic_add_circle_outline"
                     android:id="@+id/btnPlus"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
@@ -91,7 +99,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/rounded_corner"
                 android:gravity="right"
-                android:text="Rp.450.000"
+                android:text="Rp450.000"
                 android:textSize="20sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
