@@ -1,5 +1,6 @@
 package id.compunerd.silab.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -125,9 +126,14 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
 
     private void orderBarang(String idPerusahaan, String idBarang, String jumlahBarang, String totalHarga) {
         mApiService.orderPengujian(idPerusahaan, idBarang, jumlahBarang, totalHarga).enqueue(new Callback<ResponseBody>() {
+            final ProgressDialog dialog = ProgressDialog.show(getActivity(), "Loading",
+                    "Loading. Please wait...", true);
+
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                dialog.show();
                 if (response.isSuccessful()){
+                    dialog.dismiss();
                     try {
                         JSONObject jsonRESULT = new JSONObject(response.body().string());
                         if (jsonRESULT.getString("success").isEmpty()){
@@ -140,8 +146,10 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
                             getActivity().finish();
                         }
                     } catch (JSONException e) {
+                        dialog.dismiss();
                         e.printStackTrace();
                     } catch (IOException e) {
+                        dialog.dismiss();
                         e.printStackTrace();
                     }
                 }
@@ -149,6 +157,7 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                dialog.dismiss();
                 t.printStackTrace();
                 Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }

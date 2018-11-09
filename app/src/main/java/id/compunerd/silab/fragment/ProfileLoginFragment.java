@@ -1,6 +1,7 @@
 package id.compunerd.silab.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +21,7 @@ import java.io.IOException;
 
 import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
+import id.compunerd.silab.RegisterActivity;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
 import id.compunerd.silab.utils.SharedPrefManager;
@@ -63,6 +65,9 @@ public class ProfileLoginFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Bundle extra = getActivity().getIntent().getExtras();
         if (extra != null) {
+            final ProgressDialog dialog = ProgressDialog.show(getActivity(), "Loading",
+                    "Loading. Please wait...", true);
+            dialog.show();
 //            token.setText(extra.getString("token"));
             String token = extra.getString("token");
             sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN,token);
@@ -89,17 +94,20 @@ public class ProfileLoginFragment extends Fragment {
 
 //                                Toast.makeText(ProfileActivity.this, "Berhasil Login", Toast.LENGTH_SHORT).show();
                             }
+                            dialog.dismiss();
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            dialog.dismiss();
                         } catch (IOException e) {
                             e.printStackTrace();
+                            dialog.dismiss();
                         }
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                    dialog.dismiss();
                 }
             });
         }

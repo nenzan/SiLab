@@ -1,6 +1,7 @@
 package id.compunerd.silab.fragment;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
@@ -55,7 +58,8 @@ public class VerticalStepperFragment extends Fragment {
     String idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga;
     ApiInterface mApiService;
     String mediaPath;
-    final int REQUEST_GALLERY = 9544;
+    final int REQUEST_GALLERY = 100;
+    Map<String, RequestBody> map = new HashMap<>();
 
 
     @Override
@@ -83,7 +87,7 @@ public class VerticalStepperFragment extends Fragment {
         mSteppers[4] = view.findViewById(R.id.stepper_4);
 
         VerticalStepperItemView.bindSteppers(mSteppers);
-        imageHolder = view.findViewById(R.id.imageHolder);
+        imageHolder = (ImageView) view.findViewById(R.id.imageHolder);
         btnDownload = view.findViewById(R.id.btnDownload);
         btnGallery = view.findViewById(R.id.btnGallery);
         tvTotal = view.findViewById(R.id.tvTotal);
@@ -103,8 +107,29 @@ public class VerticalStepperFragment extends Fragment {
         btnUploadPaymentProof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), idPengujian, Toast.LENGTH_SHORT).show();
-                uploadFile(idPengujian);
+                mApiService.uploadFileText("image.jpg", idPengujian).enqueue(new Callback() {
+                    @Override
+                    public void onResponse(Call call, Response response) {
+                        if (response.isSuccessful()) {
+                            try {
+                                JSONObject jsonRESULT = new JSONObject(response.body().toString());
+                                Log.d("json", String.valueOf(jsonRESULT));
+                                Toast.makeText(getActivity(), "Berhasil Upload gambar", Toast.LENGTH_SHORT).show();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }else {
+                            Toast.makeText(getActivity(), "Gagal upload", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call call, Throwable t) {
+                        Log.d("RETRO", "ON FAILURE : " + t.getMessage());
+                    }
+                });
+
+                //uploadFile(idPengujian);
             }
         });
 
@@ -132,19 +157,16 @@ public class VerticalStepperFragment extends Fragment {
             }
         });
 
-//        changeStepper0("tanggal ordernyah", true);
-//        changeStepper1("tanggal pembayaran  telah di vefipikasi ");
-//        changeStepper2("tanggal barang sample diterima");
-//        changeStepper3("tanggal barang sedang diproses");
-
         stepperCondition(idPengujian, tglOrder, tglBayar, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK) {
+        Log.d("onActivityResult", "requestCode = " + requestCode);
+
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_GALLERY) {
                 Uri dataimage = data.getData();
                 String[] imageprojection = {MediaStore.Images.Media.DATA};
@@ -157,40 +179,53 @@ public class VerticalStepperFragment extends Fragment {
 
                     if (mediaPath != null) {
                         File image = new File(mediaPath);
-                        imageHolder.setImageBitmap(BitmapFactory.decodeFile(image.getAbsolutePath()));
+//                        imageHolder.setImageBitmap(BitmapFactory.decodeFile(image.getAbsolutePath()));
+
+                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
+                        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", image.getName(), reqFile);
+                        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
+
+                        mApiService.uploadFile(body, name, idPengujian).enqueue(new Callback() {
+                            @Override
+                            public void onResponse(Call call, Response response) {
+                                if (response.isSuccessful()) {
+                                    try {
+                                        JSONObject jsonRESULT = new JSONObject(response.body().toString());
+                                        Log.d("json", String.valueOf(jsonRESULT));
+                                        Toast.makeText(getActivity(), "Berhasil Upload gambar", Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }else {
+                                    Toast.makeText(getActivity(), "Gagal upload", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call call, Throwable t) {
+                                Log.d("RETRO", "ON FAILURE : " + t.getMessage());
+                            }
+                        });
                     }
+                }else {
+                    Toast.makeText(getActivity(), "Gambar Tidak Dipilih", Toast.LENGTH_SHORT).show();
                 }
             }
+        }else {
+            Toast.makeText(getActivity(), "Gambar Tidak Masuk", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void uploadFile(String idPengujian) {
 
         // Map is used to multipart the file using okhttp3.RequestBody
-        File file = new File(mediaPath);
+        File imageFile = new File(mediaPath);
 
         // Parsing any Media type file
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), file.getName());
+        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
+        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("image", imageFile.getName(), requestBody);
+        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), imageFile.getName());
 
-        mApiService.uploadFile(fileToUpload, idPengujian).enqueue(new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) {
-                if (response.isSuccessful()) {
-                    try {
-                        JSONObject jsonRESULT = new JSONObject(response.body().toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call call, Throwable t) {
-                Log.d("RETRO", "ON FAILURE : " + t.getMessage());
-            }
-        });
     }
 
     private void stepperCondition(String idPengujian, String tglOrder, String tglBayar, String tglVerifikasi, String tglBarangDiterima, String tglBarangSelesai, String totalHarga) {

@@ -1,6 +1,7 @@
 package id.compunerd.silab.rest;
 
 import java.util.List;
+import java.util.Map;
 
 import id.compunerd.silab.model.Item;
 import id.compunerd.silab.model.ResultItem;
@@ -51,11 +52,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @Multipart
     @POST("/api/pengujian/buktibayar/{idPengujian}")
-    Call<ResponseBody> uploadFile(@Part MultipartBody.Part image,
+    Call<ResponseBody> uploadFile(@Part MultipartBody.Part file,
+                                  @Part("bukti_pembayaran") RequestBody bukti_pembayaran,
                                   @Path("idPengujian") String idPengujian);
 
     @FormUrlEncoded
     @POST("/api/pengujian/buktibayar/{idPengujian}")
     Call<ResponseBody> uploadFileText(@Field("bukti_pembayaran") String bukti_pembayaran,
-                        @Path("idPengujian") String idPengujian);
+                        @Path("id") String idPengujian);
 }

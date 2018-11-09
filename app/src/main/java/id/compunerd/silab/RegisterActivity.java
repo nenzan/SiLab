@@ -1,5 +1,6 @@
 package id.compunerd.silab;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -45,12 +46,16 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void requestRegister() {
+        final ProgressDialog dialog = ProgressDialog.show(RegisterActivity.this, "Loading",
+                "Loading. Please wait...", true);
+        dialog.show();
         mApiService.registerUser(RegistName.getText().toString(),
                 RegistEmail.getText().toString(),
                 RegistPassword.getText().toString(),
                 RegistConfirmPassword.getText().toString()).enqueue(new Callback<UserResult>() {
             @Override
             public void onResponse(Call<UserResult> call, Response<UserResult> response) {
+                dialog.dismiss();
                 Toast.makeText(RegisterActivity.this, R.string.registration_success, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
@@ -59,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onFailure(Call<UserResult> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(RegisterActivity.this, "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
             }
 
         });
