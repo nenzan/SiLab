@@ -5,14 +5,17 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,11 +25,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import id.compunerd.silab.MainActivity;
@@ -39,10 +50,13 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
@@ -58,9 +72,8 @@ public class VerticalStepperFragment extends Fragment {
     String idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga;
     ApiInterface mApiService;
     String mediaPath;
-    final int REQUEST_GALLERY = 100;
-    Map<String, RequestBody> map = new HashMap<>();
-
+    public static final int REQUEST_CODE_CAMERA = 0012;
+    public static final int REQUEST_CODE_GALLERY = 0013;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
@@ -99,7 +112,10 @@ public class VerticalStepperFragment extends Fragment {
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "open gallery"), REQUEST_GALLERY);
+                startActivityForResult(Intent.createChooser(intent, "open gallery"), REQUEST_CODE_GALLERY);
+
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent, REQUEST_CAMERA);
             }
         });
 
@@ -107,29 +123,29 @@ public class VerticalStepperFragment extends Fragment {
         btnUploadPaymentProof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiService.uploadFileText("image.jpg", idPengujian).enqueue(new Callback() {
-                    @Override
-                    public void onResponse(Call call, Response response) {
-                        if (response.isSuccessful()) {
-                            try {
-                                JSONObject jsonRESULT = new JSONObject(response.body().toString());
-                                Log.d("json", String.valueOf(jsonRESULT));
-                                Toast.makeText(getActivity(), "Berhasil Upload gambar", Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }else {
-                            Toast.makeText(getActivity(), "Gagal upload", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+//                mApiService.uploadFileText("image.jpg", idPengujian).enqueue(new Callback() {
+//                    @Override
+//                    public void onResponse(Call call, Response response) {
+//                        if (response.isSuccessful()) {
+//                            try {
+//                                JSONObject jsonRESULT = new JSONObject(response.body().toString());
+//                                Log.d("json", String.valueOf(jsonRESULT));
+//                                Toast.makeText(getActivity(), "Berhasil Upload gambar", Toast.LENGTH_SHORT).show();
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }else {
+//                            Toast.makeText(getActivity(), "Gagal upload", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call call, Throwable t) {
+//                        Log.d("RETRO", "ON FAILURE : " + t.getMessage());
+//                    }
+//                });
 
-                    @Override
-                    public void onFailure(Call call, Throwable t) {
-                        Log.d("RETRO", "ON FAILURE : " + t.getMessage());
-                    }
-                });
-
-                //uploadFile(idPengujian);
+                uploadFile(idPengujian);
             }
         });
 
@@ -160,72 +176,98 @@ public class VerticalStepperFragment extends Fragment {
         stepperCondition(idPengujian, tglOrder, tglBayar, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //super.onActivityResult(requestCode, resultCode, data);
-
-        Log.d("onActivityResult", "requestCode = " + requestCode);
-
-        if (resultCode == Activity.RESULT_OK) {
-            if (requestCode == REQUEST_GALLERY) {
-                Uri dataimage = data.getData();
-                String[] imageprojection = {MediaStore.Images.Media.DATA};
-                Cursor cursor = getActivity().getContentResolver().query(dataimage, imageprojection, null, null, null);
-
-                if (cursor != null) {
-                    cursor.moveToFirst();
-                    int indexImage = cursor.getColumnIndex(imageprojection[0]);
-                    mediaPath = cursor.getString(indexImage);
-
-                    if (mediaPath != null) {
-                        File image = new File(mediaPath);
-//                        imageHolder.setImageBitmap(BitmapFactory.decodeFile(image.getAbsolutePath()));
-
-                        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), image);
-                        MultipartBody.Part body = MultipartBody.Part.createFormData("upload", image.getName(), reqFile);
-                        RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload_test");
-
-                        mApiService.uploadFile(body, name, idPengujian).enqueue(new Callback() {
-                            @Override
-                            public void onResponse(Call call, Response response) {
-                                if (response.isSuccessful()) {
-                                    try {
-                                        JSONObject jsonRESULT = new JSONObject(response.body().toString());
-                                        Log.d("json", String.valueOf(jsonRESULT));
-                                        Toast.makeText(getActivity(), "Berhasil Upload gambar", Toast.LENGTH_SHORT).show();
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }else {
-                                    Toast.makeText(getActivity(), "Gagal upload", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call call, Throwable t) {
-                                Log.d("RETRO", "ON FAILURE : " + t.getMessage());
-                            }
-                        });
-                    }
-                }else {
-                    Toast.makeText(getActivity(), "Gambar Tidak Dipilih", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }else {
-            Toast.makeText(getActivity(), "Gambar Tidak Masuk", Toast.LENGTH_SHORT).show();
-        }
+    private void uploadFile(String idPengujian) {
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "open gallery"), REQUEST_GALLERY);
+        EasyImage.openGallery(getActivity(), REQUEST_CODE_GALLERY);
     }
 
-    private void uploadFile(String idPengujian) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        // Map is used to multipart the file using okhttp3.RequestBody
-        File imageFile = new File(mediaPath);
+        //Log.d("onActivityResult", "requestCode = " + requestCode);
 
-        // Parsing any Media type file
-        RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), imageFile);
-        MultipartBody.Part fileToUpload = MultipartBody.Part.createFormData("image", imageFile.getName(), requestBody);
-        RequestBody filename = RequestBody.create(MediaType.parse("text/plain"), imageFile.getName());
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                Toast.makeText(getActivity(), "Error Mengambil Gambar", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                switch (type) {
+                    case REQUEST_CODE_GALLERY:
+                        Glide.with(getActivity())
+                                .load(imageFile)
+                                .centerCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(imageHolder);
+                        break;
+                }
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toast.makeText(getActivity(), "Tidak Jadi", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        if (resultCode != RESULT_CANCELED) {
+//            if (requestCode == REQUEST_GALLERY) {
+//                Uri dataimage = data.getData();
+//                String[] imageprojection = {MediaStore.Images.Media.DATA};
+//                Cursor cursor = getActivity().getContentResolver().query(dataimage, imageprojection, null, null, null);
+//
+//                if (cursor != null) {
+//                    cursor.moveToFirst();
+//                    int indexImage = cursor.getColumnIndex(imageprojection[0]);
+//                    mediaPath = cursor.getString(indexImage);
+//
+//                    if (mediaPath != null) {
+////                        File image = new File(mediaPath);
+//                        Bitmap bitmap = BitmapFactory.decodeFile(mediaPath);
+//                        imageHolder.setImageBitmap(bitmap);
+//
+//                        InputStream imageStream = null;
+//                        try {
+//                            imageStream = getActivity().getContentResolver().openInputStream(dataimage);
+//                        } catch (FileNotFoundException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Bitmap yourSelectedImage = BitmapFactory.decodeStream(imageStream);
+//                        encodeTobase64(yourSelectedImage);
+//
+//                        String base64 = encodeTobase64(yourSelectedImage);
+//                        mApiService.uploadFile(base64, idPengujian).enqueue(new Callback<ResponseBody>() {
+//                            @Override
+//                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+//                                Toast.makeText(getActivity(), "Sukses", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//                            }
+//                        });
+//                    }
+//                }else {
+//                    Toast.makeText(getActivity(), "Gambar Tidak Dipilih", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                int columnIndex = cursor.getColumnIndex(imageprojection[0]);
+//                String picturePath = cursor.getString(columnIndex);
+//                cursor.close();
+//
+//                Bitmap bitmap = BitmapFactory.decodeFile(picturePath);
+//                imageHolder.setImageBitmap(bitmap);
+
+//            }
+//        }else {
+//            Toast.makeText(getActivity(), "Gambar Tidak Masuk", Toast.LENGTH_SHORT).show();
+//        }
     }
 
     private void stepperCondition(String idPengujian, String tglOrder, String tglBayar, String tglVerifikasi, String tglBarangDiterima, String tglBarangSelesai, String totalHarga) {

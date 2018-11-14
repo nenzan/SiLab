@@ -1,7 +1,7 @@
 package id.compunerd.silab.rest;
 
 public class UtilsApi {
-    public static final String BASE_URL_API = "https://silab-beta.000webhostapp.com/";
+    public static final String BASE_URL_API = "https://surveyor-indonesia.co.id/";
 
     // Mendeklarasikan Interface BaseApiService
     public static ApiInterface getAPIService(){

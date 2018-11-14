@@ -50,14 +50,12 @@ public interface ApiInterface {
     Call<Item> getDataPengujian();
 
     @FormUrlEncoded
-    @Multipart
     @POST("/api/pengujian/buktibayar/{idPengujian}")
-    Call<ResponseBody> uploadFile(@Part MultipartBody.Part file,
-                                  @Part("bukti_pembayaran") RequestBody bukti_pembayaran,
+    Call<ResponseBody> uploadFile(@Field("bukti_pembayaran") String bukti_pembayaran,
                                   @Path("idPengujian") String idPengujian);
 
     @FormUrlEncoded
     @POST("/api/pengujian/buktibayar/{idPengujian}")
     Call<ResponseBody> uploadFileText(@Field("bukti_pembayaran") String bukti_pembayaran,
-                        @Path("id") String idPengujian);
+                                        @Path("idPengujian") String idPengujian);
 }

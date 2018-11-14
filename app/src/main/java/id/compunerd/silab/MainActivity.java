@@ -1,15 +1,25 @@
 package id.compunerd.silab;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
+import java.io.File;
 
 import id.compunerd.silab.fragment.ContactUsFragment;
 import id.compunerd.silab.fragment.HomeFragment;
@@ -17,8 +27,13 @@ import id.compunerd.silab.fragment.NotificationFragment;
 import id.compunerd.silab.fragment.ProfileFragment;
 import id.compunerd.silab.fragment.ProfileLoginFragment;
 import id.compunerd.silab.utils.SharedPrefManager;
+import pl.aprilapps.easyphotopicker.EasyImage;
+
+import static id.compunerd.silab.fragment.VerticalStepperFragment.REQUEST_CODE_GALLERY;
 
 public class MainActivity extends AppCompatActivity {
+
+    ImageView imageHolder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         Fragment fragment = new HomeFragment();
         loadFragment(fragment);
+        imageHolder = (ImageView) findViewById(R.id.imageHolder);
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
@@ -105,4 +121,34 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Log.d("onActivityResult", "requestCode = " + requestCode);
+        EasyImage.handleActivityResult(requestCode, resultCode, data, MainActivity.this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                Toast.makeText(MainActivity.this, "Error Mengambil Gambar", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
+                switch (type) {
+                    case REQUEST_CODE_GALLERY:
+                        Glide.with(MainActivity.this)
+                                .load(imageFile)
+                                .centerCrop()
+                                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                .into(imageHolder);
+                        break;
+                }
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toast.makeText(MainActivity.this, "Tidak Jadi", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

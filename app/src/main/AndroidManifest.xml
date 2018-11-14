@@ -25,7 +25,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".StatusActivity" />
         <activity android:name=".StepOrderActivity" />
-        <activity android:name=".UploadActivity"></activity>
+        <activity android:name=".UploadActivity" />
+        <activity android:name=".ItemTrackingActivity"></activity>
     </application>
 
 </manifest>

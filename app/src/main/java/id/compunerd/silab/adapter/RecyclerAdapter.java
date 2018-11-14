@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import id.compunerd.silab.ItemTrackingActivity;
 import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.fragment.VerticalStepperFragment;
@@ -37,6 +38,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.list_item, viewGroup, false);
 
+        context = viewGroup.getContext();
         return new CustomViewHolder(itemView);
     }
 
@@ -58,23 +60,40 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         holder.namaPengujian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AppCompatActivity activity = (AppCompatActivity) v.getContext();
-                Fragment myFragment = new VerticalStepperFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("idPengujian", idPengujian);
-                bundle.putString("tglBayar", tglBayar);
-                bundle.putString("tglOrder", tglOrder);
-                bundle.putString("tglVerifikasi", tglVerifikasi);
-                bundle.putString("tglBarangDiterima", tglBarangDiterima);
-                bundle.putString("tglBarangSelesai", tglBarangSelesai);
-                bundle.putString("totalHarga", totalHarga);
-                myFragment.setArguments(bundle);
-                activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
-                activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, myFragment).addToBackStack(null).commit();
-
-
+//                sendDataFragment(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
+                sendDatatoActivity(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
             }
         });
+    }
+
+    private void sendDatatoActivity(View v, String idPengujian, String tglBayar, String tglOrder, String tglVerifikasi, String tglBarangDiterima, String tglBarangSelesai, String totalHarga) {
+        Intent i = new Intent(context, ItemTrackingActivity.class);
+        i.putExtra("idPengujian", idPengujian);
+        i.putExtra("tglBayar", tglBayar);
+        i.putExtra("tglOrder", tglOrder);
+        i.putExtra("tglVerifikasi", tglVerifikasi);
+        i.putExtra("tglBarangDiterima", tglBarangDiterima);
+        i.putExtra("tglBarangSelesai", tglBarangSelesai);
+        i.putExtra("totalHarga", totalHarga);
+        context.startActivity(i);
+
+    }
+
+    private void sendDataFragment(View v, String idPengujian, String tglBayar, String tglOrder, String tglVerifikasi, String tglBarangDiterima, String tglBarangSelesai, String totalHarga) {
+        AppCompatActivity activity = (AppCompatActivity) v.getContext();
+        Fragment myFragment = new VerticalStepperFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("idPengujian", idPengujian);
+        bundle.putString("tglBayar", tglBayar);
+        bundle.putString("tglOrder", tglOrder);
+        bundle.putString("tglVerifikasi", tglVerifikasi);
+        bundle.putString("tglBarangDiterima", tglBarangDiterima);
+        bundle.putString("tglBarangSelesai", tglBarangSelesai);
+        bundle.putString("totalHarga", totalHarga);
+        myFragment.setArguments(bundle);
+        activity.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
+        activity.getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, myFragment).addToBackStack(null).commit();
+
     }
 
 
