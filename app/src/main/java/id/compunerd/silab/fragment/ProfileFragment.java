@@ -1,6 +1,7 @@
 package id.compunerd.silab.fragment;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -88,15 +89,20 @@ public class ProfileFragment extends Fragment {
     }
 
     private void requestSignIn() {
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setTitle(getString(R.string.loading));
+        pd.setMessage(getString(R.string.please_wait));
+        pd.show();
         mApiService.loginUser(emailInput.getText().toString(),
                 passwordInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()){
+                    pd.dismiss();
                     try {
                         JSONObject jsonRESULT = new JSONObject(response.body().string());
                         if (jsonRESULT.getString("success").isEmpty()){
-                            Toast.makeText(getActivity(), "Gagal Login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.failed_login, Toast.LENGTH_SHORT).show();
                         }else {
                             String token = jsonRESULT.getJSONObject("success").getString("token");
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
@@ -104,13 +110,15 @@ public class ProfileFragment extends Fragment {
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             intent.putExtra("token", token);
                             startActivity(intent);
-                            Toast.makeText(getActivity(), "Berhasil Login", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.success_login, Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                         }
 
                     } catch (JSONException e) {
+                        pd.dismiss();
                         e.printStackTrace();
                     } catch (IOException e) {
+                        pd.dismiss();
                         e.printStackTrace();
                     }
                 }
@@ -118,8 +126,9 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                pd.dismiss();
                 t.printStackTrace();
-                Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.connection_problem, Toast.LENGTH_SHORT).show();
             }
         });
     }

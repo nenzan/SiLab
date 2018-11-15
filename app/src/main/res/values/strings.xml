@@ -36,7 +36,7 @@
     <string name="cancel_order">Cancel Order</string>
     <string name="proof_payment_suces_sent">Bukti Pembayaran Berhasil Dikirim</string>
     <string name="payment_verivied">Pembayaran Terverifikasi</string>
-    <string name="wait_payment">Order Sedang Diproses, Menunggu Pembayaran</string>
+    <string name="wait_payment">Order is being processed, waiting for payment</string>
     <string name="waiting_payment_verification">Menunggu Verifikasi Pembayaran</string>
     <string name="payment_verified_waiting_sample">Menunggu Sampel Barang Diterima</string>
     <string name="barang_diterim_dan_sedangdirposes">Barang Sudah Diterima dan Akan Diproses</string>
@@ -52,5 +52,25 @@
     <string name="msg_exit">Are you sure want to exit the application?</string>
     <string name="registration_success">Registration Success</string>
     <string name="cancel_underline"><u>Cancel</u></string>
+
+    <string name="msg_confirm">Summary order is below \n Are you sure want to proceed this order?</string>
+    <string name="check_order">Please check order before you confirm</string>
+    <string name="loading">Loading</string>
+    <string name="connection_problem">Connection Problem</string>
+    <string name="success_login">Success Login</string>
+    <string name="failed_login">Failed Login</string>
+    <string name="please_wait">Please wait...</string>
+    <string name="failed_get_picture">Failed get picture</string>
+    <string name="cancel">Cancel</string>
+    <string name="something_wrong_wDB">Something wrong with database</string>
+    <string name="please_login_first">Please login first</string>
+    <string name="Succes_upload">Success Upload</string>
+    <string name="file_size_too_large">File size is too large</string>
+    <string name="cancel_picking_image">Cancel picking image</string>
+    <string name="open_gallery_and_upload_image">Open Gallery and Upload Image</string>
+    <string name="failed_upload">Failed upload</string>
+    <string name="failed_order">Failed order</string>
+    <string name="order_success_checknotif">Order Success, Please check the notification for information</string>
+    <string name="logout">logout</string>
 </resources>
 

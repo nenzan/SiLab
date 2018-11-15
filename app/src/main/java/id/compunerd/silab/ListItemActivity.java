@@ -64,6 +64,12 @@ public class ListItemActivity extends AppCompatActivity {
                 startActivity(new Intent(getBaseContext(), StepOrderActivity.class));
             }
         });
+            }
 
+    @Override
+    public void onBackPressed() {
+        finish();
     }
+
+
 }

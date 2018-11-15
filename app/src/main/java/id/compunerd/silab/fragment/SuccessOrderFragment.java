@@ -23,11 +23,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import id.compunerd.silab.ListItemActivity;
 import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
-import id.compunerd.silab.utils.SharedPrefManager;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,8 +82,8 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
             tot = Integer.parseInt(prefs.getString(TOTAL_HARGA, null));
             tvNama.setText(prefs.getString(NAMA_BARANG, null));
             tvJumlah.setText(prefs.getString(JUMLAH_BARANG, null));
-            tvTotalHarga.setText(formatRupiah.format((double)tot));
-            tvTotalHargaBank.setText(formatRupiah.format((double)tot));
+            tvTotalHarga.setText(formatRupiah.format((double) tot));
+            tvTotalHargaBank.setText(formatRupiah.format((double) tot));
         }
 
     }
@@ -102,12 +102,16 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
     @Override
     public void onCompleteClicked(StepperLayout.OnCompleteClickedCallback callback) {
 
-        if (tvNama.getText().equals("KTK")){
+        if (tvNama.getText().equals("KTK")) {
             idBarang = "BG00000001";
-        }else if (tvNama.getText().equals("Nike")){
+        } else if (tvNama.getText().equals("Nikel")) {
             idBarang = "BG00000002";
-        }else if (tvNama.getText().equals("Besi")){
+        } else if (tvNama.getText().equals("Besi")) {
             idBarang = "BG00000003";
+        } else if (tvNama.getText().equals("Bauksit")) {
+            idBarang = "BG00000004";
+        } else if (tvNama.getText().equals("Kaolin")) {
+            idBarang = "BG00000005";
         }
 
         // TODO: 06/11/2018 POST Order Barang
@@ -125,31 +129,30 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
     }
 
     private void orderBarang(String idPerusahaan, String idBarang, String jumlahBarang, String totalHarga) {
+        final ProgressDialog pd = new ProgressDialog(getContext());
+        pd.setTitle(getString(R.string.loading));
+        pd.setMessage("Please wait...");
+        pd.show();
         mApiService.orderPengujian(idPerusahaan, idBarang, jumlahBarang, totalHarga).enqueue(new Callback<ResponseBody>() {
-            final ProgressDialog dialog = ProgressDialog.show(getActivity(), "Loading",
-                    "Loading. Please wait...", true);
-
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                dialog.show();
-                if (response.isSuccessful()){
-                    dialog.dismiss();
+                if (response.isSuccessful()) {
+                    pd.dismiss();
                     try {
                         JSONObject jsonRESULT = new JSONObject(response.body().string());
-                        if (jsonRESULT.getString("success").isEmpty()){
-                            Toast.makeText(getActivity(), "Gagal Order Pengujian", Toast.LENGTH_SHORT).show();
-                        }else {
+                        if (jsonRESULT.getString("success").isEmpty()) {
+                            Toast.makeText(getActivity(), R.string.failed_order, Toast.LENGTH_SHORT).show();
+                        } else {
                             Intent intent = new Intent(getActivity(), MainActivity.class);
                             startActivity(intent);
-                            Toast.makeText(getActivity(), "Berhasil Order Pengujian", Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getActivity(), "Silahkan cek notifikasi untuk informasi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), R.string.order_success_checknotif, Toast.LENGTH_SHORT).show();
                             getActivity().finish();
                         }
                     } catch (JSONException e) {
-                        dialog.dismiss();
+                        pd.dismiss();
                         e.printStackTrace();
                     } catch (IOException e) {
-                        dialog.dismiss();
+                        pd.dismiss();
                         e.printStackTrace();
                     }
                 }
@@ -157,7 +160,7 @@ public class SuccessOrderFragment extends Fragment implements BlockingStep {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                dialog.dismiss();
+                pd.dismiss();
                 t.printStackTrace();
                 Toast.makeText(getActivity(), "Koneksi Bermasalah", Toast.LENGTH_SHORT).show();
             }

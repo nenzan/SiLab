@@ -26,7 +26,7 @@
             android:id="@+id/emailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_email"
+            android:drawableLeft="@drawable/ic_email_black"
             android:hint="E-mail"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorPrimaryText"
@@ -36,22 +36,40 @@
             android:id="@+id/passwordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_password"
+            android:drawableLeft="@drawable/ic_lock_outline"
             android:hint="Password"
             android:inputType="textPassword"
             android:textColor="@color/colorPrimaryText"
             android:textColorHint="@color/colorPrimaryText" />
-        <TextView
-            android:id="@+id/toRegister"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
 
-            android:text="Don't have account? Register Here!"
-            android:textAlignment="center"
-            android:textColor="@color/material_blue_700"
-            android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="10dp"
+                android:text="Dont have account ?"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/toRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginBottom="10dp"
+                android:text="Register here"
+                android:textAlignment="center"
+                android:textColor="@color/material_blue_700"
+                android:textSize="16sp" />
+        </LinearLayout>
 
         <Button
             android:layout_marginTop="20dp"

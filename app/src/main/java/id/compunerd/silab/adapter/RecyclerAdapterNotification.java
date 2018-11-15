@@ -1,13 +1,10 @@
 package id.compunerd.silab.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,17 +15,16 @@ import android.widget.TextView;
 import java.util.List;
 
 import id.compunerd.silab.ItemTrackingActivity;
-import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.fragment.VerticalStepperFragment;
 import id.compunerd.silab.model.ResultItem;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.CustomViewHolder> {
+public class RecyclerAdapterNotification extends RecyclerView.Adapter<RecyclerAdapterNotification.CustomViewHolder> {
 
     List<ResultItem> resultItems;
     private Context context;
 
-    public  RecyclerAdapter(List<ResultItem> resultItems){
+    public RecyclerAdapterNotification(List<ResultItem> resultItems){
         this.resultItems = resultItems;
     }
 
@@ -60,8 +56,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Custom
         holder.namaPengujian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                sendDataFragment(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
-                sendDatatoActivity(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
+                sendDataFragment(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
+//                sendDatatoActivity(v, idPengujian, tglBayar, tglOrder, tglVerifikasi, tglBarangDiterima, tglBarangSelesai, totalHarga);
             }
         });
     }

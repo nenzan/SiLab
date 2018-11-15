@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         final SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
         Fragment fragment = new HomeFragment();
         loadFragment(fragment);
-        imageHolder = (ImageView) findViewById(R.id.imageHolder);
+//        imageHolder = (ImageView) findViewById(R.id.imageHolder);
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigation);
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 .setCancelable(false)
                 .setPositiveButton(R.string.ya, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        MainActivity.this.finish();
+                        finishAffinity();
                     }
                 })
                 .setNegativeButton(R.string.tidak, new DialogInterface.OnClickListener() {
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         alert.show();
     }
 
-    private void loadFragment(Fragment fragment) {
+    public void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(R.animator.enter_from_right, R.animator.exit_to_right);
         transaction.replace(R.id.frameLayout, fragment);

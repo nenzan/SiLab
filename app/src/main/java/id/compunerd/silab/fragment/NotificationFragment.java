@@ -20,10 +20,9 @@ import java.util.ArrayList;
 
 import id.compunerd.silab.MainActivity;
 import id.compunerd.silab.R;
-import id.compunerd.silab.adapter.RecyclerAdapter;
+import id.compunerd.silab.adapter.RecyclerAdapterNotification;
 import id.compunerd.silab.model.Item;
 import id.compunerd.silab.model.ResultItem;
-import id.compunerd.silab.rest.ApiClient;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
 import id.compunerd.silab.utils.SharedPrefManager;
@@ -45,7 +44,7 @@ public class NotificationFragment extends Fragment {
     ApiInterface mApiService;
     private ArrayList<ResultItem> resultItem;
     private RecyclerView recyclerView;
-    private RecyclerAdapter rAdapter;
+    private RecyclerAdapterNotification rAdapter;
     SharedPrefManager sharedPrefManager;
     String idPerusahaan = "PR00000001";
 
@@ -66,25 +65,22 @@ public class NotificationFragment extends Fragment {
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (idPerusahaan.isEmpty()) {
-            Toast.makeText(getActivity(), "Mohon Untuk Login Terlebih Dahulu", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.please_login_first, Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getActivity(), MainActivity.class));
             getActivity().finish();
         } else {
-
             idPerusahaan = sharedPrefManager.getSPIdPerusahaan();
-
             mApiService.getDataPengujian().enqueue(new Callback<Item>() {
                 @Override
                 public void onResponse(Call<Item> call, Response<Item> response) {
                     if (response.isSuccessful()) {
                         resultItem = (ArrayList<ResultItem>) response.body().getSuccess();
                         recyclerView = (RecyclerView) view.findViewById(R.id.recycle);
-                        rAdapter = new RecyclerAdapter(resultItem);
+                        rAdapter = new RecyclerAdapterNotification(resultItem);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setItemAnimator(new DefaultItemAnimator());
                         recyclerView.setAdapter(rAdapter);
-
                         shimmerContainer.stopShimmer();
                         shimmerContainer.setVisibility(View.GONE);
                     }

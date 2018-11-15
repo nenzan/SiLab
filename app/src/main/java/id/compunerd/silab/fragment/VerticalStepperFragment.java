@@ -1,22 +1,9 @@
 package id.compunerd.silab.fragment;
 
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,36 +15,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import id.compunerd.silab.MainActivity;
+import id.compunerd.silab.ItemTrackingActivity;
 import id.compunerd.silab.R;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
-import id.compunerd.silab.utils.SharedPrefManager;
 import moe.feng.common.stepperview.VerticalStepperItemView;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
+import static id.compunerd.silab.fragment.OrderFragment.formatRupiah;
 
 
 /**
@@ -100,24 +67,24 @@ public class VerticalStepperFragment extends Fragment {
         mSteppers[4] = view.findViewById(R.id.stepper_4);
 
         VerticalStepperItemView.bindSteppers(mSteppers);
-        imageHolder = (ImageView) view.findViewById(R.id.imageHolder);
+//        imageHolder = (ImageView) view.findViewById(R.id.imageHolder);
         btnDownload = view.findViewById(R.id.btnDownload);
-        btnGallery = view.findViewById(R.id.btnGallery);
+//        btnGallery = view.findViewById(R.id.btnGallery);
         tvTotal = view.findViewById(R.id.tvTotal);
         btnUploadPaymentProof = view.findViewById(R.id.btnUploadPaymentProof);
 
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "open gallery"), REQUEST_CODE_GALLERY);
-
-//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(intent, REQUEST_CAMERA);
-            }
-        });
+//        btnGallery.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent();
+////                intent.setType("image/*");
+////                intent.setAction(Intent.ACTION_GET_CONTENT);
+////                startActivityForResult(Intent.createChooser(intent, "open gallery"), REQUEST_CODE_GALLERY);
+////
+////                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+////                startActivityForResult(intent, REQUEST_CAMERA);
+//            }
+//        });
 
 
         btnUploadPaymentProof.setOnClickListener(new View.OnClickListener() {
@@ -144,32 +111,8 @@ public class VerticalStepperFragment extends Fragment {
 //                        Log.d("RETRO", "ON FAILURE : " + t.getMessage());
 //                    }
 //                });
-
-                uploadFile(idPengujian);
-            }
-        });
-
-        btnCancelPayment = view.findViewById(R.id.btnCancelPayment);
-        btnCancelPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(getActivity())
-                        .setTitle("Cancel Order")
-                        .setMessage("Are you sure to cancel this order ?")
-                        .setPositiveButton(R.string.ya, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                getActivity().finish();
-                                startActivity(new Intent(getActivity(), MainActivity.class));
-                            }
-                        })
-                        .setNegativeButton(R.string.tidak, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-
-                            }
-                        })
-                        .show();
+//                uploadFile(idPengujian);
+                sendDatatoActivity(idPengujian);
             }
         });
 
@@ -193,7 +136,7 @@ public class VerticalStepperFragment extends Fragment {
         EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-                Toast.makeText(getActivity(), "Error Mengambil Gambar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.failed_get_picture, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -211,7 +154,7 @@ public class VerticalStepperFragment extends Fragment {
 
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
-                Toast.makeText(getActivity(), "Tidak Jadi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.cancel, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -274,7 +217,7 @@ public class VerticalStepperFragment extends Fragment {
 
         if ((idPengujian != null) && (tglOrder != null) && (tglBayar == null) && (tglVerifikasi == null) && (tglBarangDiterima == null) && (tglBarangSelesai == null)) {
             changeStepper0(tglOrder, false);
-            tvTotal.setText(totalHarga);
+            tvTotal.setText(formatRupiah.format((double) Integer.valueOf(totalHarga)));
         } else if ((idPengujian != null) && (tglOrder != null) && (tglBayar != null) && (tglVerifikasi == null) && (tglBarangDiterima == null) && (tglBarangSelesai == null)) {
             changeStepper0(tglOrder, true);
             changeStepper1(tglBayar);
@@ -294,7 +237,7 @@ public class VerticalStepperFragment extends Fragment {
             changeStepper3(tglBarangDiterima);
             changeStepper4(tglBarangSelesai);
         } else {
-            Toast.makeText(getActivity(), "Terjadi Kesalahan pada Database", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.something_wrong_wDB, Toast.LENGTH_SHORT).show();
         }
 
 
@@ -339,6 +282,13 @@ public class VerticalStepperFragment extends Fragment {
         mSteppers[4].setTitle(tglBeres);
         mSteppers[4].setIsLastStep(true);
         btnDownload.setVisibility(View.VISIBLE);
+    }
+
+    private void sendDatatoActivity(String idPengujian) {
+        Intent i = new Intent(getContext(), ItemTrackingActivity.class);
+        i.putExtra("idPengujian", idPengujian);
+        getContext().startActivity(i);
+
     }
 
 

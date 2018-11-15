@@ -1,11 +1,13 @@
 package id.compunerd.silab;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +20,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
+import id.compunerd.silab.fragment.NotificationFragment;
 import id.compunerd.silab.rest.ApiInterface;
 import id.compunerd.silab.rest.UtilsApi;
 import okhttp3.ResponseBody;
@@ -48,6 +48,7 @@ public class ItemTrackingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_tracking);
 
+
         mApiService = UtilsApi.getAPIService();
         Intent i = getIntent();
         idPengujian = i.getStringExtra("idPengujian");
@@ -70,21 +71,27 @@ public class ItemTrackingActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                 // TODO: 14/11/2018 Tambahin kondisi error ketika pick image error
+                AlertDialog.Builder ad = new AlertDialog.Builder(getApplicationContext());
+                ad.setMessage("Error while pick image");
+                ad.setPositiveButton(
+                        "Ok",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
             }
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                int file_size = Integer.parseInt(String.valueOf(imageFile.length()/1024));
-
-                if (file_size >= 2048){
-                    Toast.makeText(ItemTrackingActivity.this, "Ukuran file terlalu besar", Toast.LENGTH_SHORT).show();
-                }else {
-
+                int file_size = Integer.parseInt(String.valueOf(imageFile.length() / 1024));
+                if (file_size >= 2048) {
+                    Toast.makeText(ItemTrackingActivity.this, R.string.file_size_too_large, Toast.LENGTH_SHORT).show();
+                } else {
                     // TODO: 14/11/2018 Ini buat tampilan ke imageview
                     Glide.with(ItemTrackingActivity.this)
                             .load(imageFile)
@@ -103,28 +110,32 @@ public class ItemTrackingActivity extends AppCompatActivity {
 
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
-                // TODO: 14/11/2018 Tambahin kondisi cancel ambil image
+                Toast.makeText(ItemTrackingActivity.this, R.string.cancel_picking_image, Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+
     private void uploadFile(String encodedImage, String idPengujian) {
+        Toast.makeText(this, R.string.loading, Toast.LENGTH_LONG).show();
+        openGallery.setVisibility(View.GONE);
         mApiService.uploadFile(encodedImage, idPengujian).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                // TODO: 14/11/2018 Tambahin progress bar kalo bisa
-                Toast.makeText(ItemTrackingActivity.this, "Berhasil Upload", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ItemTrackingActivity.this, R.string.Succes_upload, Toast.LENGTH_LONG).show();
+                finish();
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                Toast.makeText(ItemTrackingActivity.this, R.string.failed_upload, Toast.LENGTH_LONG).show();
+                openGallery.setVisibility(View.VISIBLE);
             }
         });
     }
 
     public static String encodeToBase64(Bitmap image, Bitmap.CompressFormat compressFormat, int quality) {
-
         ByteArrayOutputStream byteArrayOS = new ByteArrayOutputStream();
         image.compress(compressFormat, quality, byteArrayOS);
         return Base64.encodeToString(byteArrayOS.toByteArray(), Base64.NO_WRAP);
