@@ -56,6 +56,7 @@ public class ItemTrackingActivity extends AppCompatActivity {
         text10 = findViewById(R.id.text10);
         text11 = findViewById(R.id.text11);
         text10.setText(idPengujian);
+        text10.setVisibility(View.GONE);
 
         openGallery = findViewById(R.id.btnSelectImage);
         imageViewUpload = findViewById(R.id.imageViewUpload);

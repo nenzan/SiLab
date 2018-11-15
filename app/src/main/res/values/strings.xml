@@ -18,7 +18,7 @@
     <string name="content_step_2">This is the last step. You can finish steps now.</string>
 
     <string name="toggle_animation_button">Toggle Animation</string>
-    <string name="menu_belum_tersedia">Menu Ini Belum Tersedia</string>
+    <string name="menu_belum_tersedia">This menu is not avaliable</string>
 
     <!-- Font -->
     <string name="roboto_regular">sans-serif</string>
@@ -32,15 +32,15 @@
     <string name="beranda">Home</string>
     <string name="profil">Profile</string>
     <string name="lain">Other</string>
-    <string name="upload_payment_proof">Upload Bukti Pembayaran</string>
+    <string name="upload_payment_proof">Upload Payment proof</string>
     <string name="cancel_order">Cancel Order</string>
-    <string name="proof_payment_suces_sent">Bukti Pembayaran Berhasil Dikirim</string>
-    <string name="payment_verivied">Pembayaran Terverifikasi</string>
+    <string name="proof_payment_suces_sent">Success send payment proof </string>
+    <string name="payment_verivied">Payment verivied</string>
     <string name="wait_payment">Order is being processed, waiting for payment</string>
-    <string name="waiting_payment_verification">Menunggu Verifikasi Pembayaran</string>
-    <string name="payment_verified_waiting_sample">Menunggu Sampel Barang Diterima</string>
-    <string name="barang_diterim_dan_sedangdirposes">Barang Sudah Diterima dan Akan Diproses</string>
-    <string name="test_complete">Pengujian Selesai</string>
+    <string name="waiting_payment_verification">Waiting payment verification</string>
+        <string name="payment_verified_waiting_sample">Waiting sample Received</string>
+    <string name="barang_diterim_dan_sedangdirposes">Sample has been received and will be processed</string>
+    <string name="test_complete">Order Complete</string>
     <string name="download">Download</string>
     <string name="sukses">Success</string>
     <string name="name">Name</string>
@@ -58,7 +58,7 @@
     <string name="loading">Loading</string>
     <string name="connection_problem">Connection Problem</string>
     <string name="success_login">Success Login</string>
-    <string name="failed_login">Failed Login</string>
+    <string name="failed_login">Failed Login, Check email and password</string>
     <string name="please_wait">Please wait...</string>
     <string name="failed_get_picture">Failed get picture</string>
     <string name="cancel">Cancel</string>

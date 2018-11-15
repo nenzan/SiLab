@@ -19,20 +19,12 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        init();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (mProgressStatus < 100) {
                     mProgressStatus++;
                     android.os.SystemClock.sleep(50);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            mProgressBar.setProgress(mProgressStatus);
-                        }
-                    });
                 }
 
                 mHandler.post(new Runnable() {
@@ -49,7 +41,5 @@ public class SplashScreenActivity extends AppCompatActivity {
 
     }
 
-    private void init() {
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-    }
+
 }

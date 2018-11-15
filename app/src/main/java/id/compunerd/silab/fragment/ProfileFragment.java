@@ -97,13 +97,14 @@ public class ProfileFragment extends Fragment {
                 passwordInput.getText().toString()).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
-                    pd.dismiss();
+                if (response.isSuccessful()) {
                     try {
                         JSONObject jsonRESULT = new JSONObject(response.body().string());
-                        if (jsonRESULT.getString("success").isEmpty()){
+                        if (jsonRESULT.getString("success").isEmpty()) {
+                            pd.dismiss();
                             Toast.makeText(getActivity(), R.string.failed_login, Toast.LENGTH_SHORT).show();
-                        }else {
+                        } else {
+                            pd.dismiss();
                             String token = jsonRESULT.getJSONObject("success").getString("token");
                             sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_SUDAH_LOGIN, true);
                             sharedPrefManager.saveSPString(SharedPrefManager.SP_TOKEN, token);
@@ -121,7 +122,11 @@ public class ProfileFragment extends Fragment {
                         pd.dismiss();
                         e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(getActivity(), R.string.failed_login, Toast.LENGTH_SHORT).show();
+                    pd.dismiss();
                 }
+
             }
 
             @Override
